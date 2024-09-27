@@ -11,7 +11,9 @@ let project = Project(
             infoPlist: .extendingDefault(with: ["UILaunchStoryboardName": "LaunchScreen"]),
             sources: ["Feastly/Sources/**"],
             resources: ["Feastly/Resources/**"],
-            dependencies: []
+            dependencies: [
+                .project(target: "DependencyKit", path: .relativeToRoot("Kits/DependencyKit")),
+            ]
         ),
     ]
 )
