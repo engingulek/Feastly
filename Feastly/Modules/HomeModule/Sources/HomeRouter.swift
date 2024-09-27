@@ -8,13 +8,18 @@
 import Foundation
 import UIKit
 import HomeModuleProtocol
+
 public class HomeRouter : HomeModuleProtocol {
     public init() { }
     public func createHomeViewController() -> UIViewController {
         let view = HomeViewController()
         return view
     }
-    
+}
+
+extension HomeRouter : PresenterToRouterHomeProtocol {
     
 }
+
+
 
