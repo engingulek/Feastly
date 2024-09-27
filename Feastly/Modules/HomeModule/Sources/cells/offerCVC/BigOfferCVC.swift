@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class OfferCVC: UICollectionViewCell {
+class BigOfferCVC: UICollectionViewCell {
     static let identifier :  String = "offerCVC"
     
 

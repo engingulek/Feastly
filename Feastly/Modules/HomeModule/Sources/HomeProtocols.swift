@@ -14,6 +14,13 @@ protocol ViewToPresenterHomeProtocol {
     var view : PresenterToViewHomeProtocol? {get}
     func viewDidLoad()
     func searchAction(text:String?)
+    func changeOfferArrayDesign()
+    
+    func numberOfItemsIn(tag:Int) -> Int
+    func cellForItem(at indexPath:IndexPath,tag:Int) -> (state:Bool,
+                                                         backColor:String,
+                                                         cornerRadius:CGFloat)
+    func sizeForItemAt(tag:Int,width:CGFloat,height:CGFloat) -> CGSize
 }
 
 protocol PresenterToViewHomeProtocol:AnyObject,Kits{
@@ -24,6 +31,7 @@ protocol PresenterToViewHomeProtocol:AnyObject,Kits{
     func offerCollectionViewPrepare()
     
     func setTitles(kitchenText:String,offerText:String)
+    func setChangeArrayButtonType(image:String,text:String)
 }
 
 
