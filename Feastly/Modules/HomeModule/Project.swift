@@ -10,6 +10,7 @@ import ProjectDescription
 
 let homeModule = Project (
     name: "HomeModule",
+    packages: [.package(url: "https://github.com/SnapKit/SnapKit", from: "5.7.1")],
     targets: [
         .target(name: "HomeModule",
                 destinations: .iOS,
@@ -19,7 +20,8 @@ let homeModule = Project (
                 sources: "Sources/**",
                 dependencies: [
                     .project(target: "HomeModuleProtocol", path: .relativeToRoot("Modules/HomeModule")),
-                    
+                    .project(target: "CommonKit", path: .relativeToRoot("Kits/CommonKit")),
+                    .package(product: "SnapKit")
                 ]
                 
                ),
@@ -29,6 +31,16 @@ let homeModule = Project (
                 bundleId: "com.ios.HomeModuleProtocol",
                 sources: "ProtocolSource/**"
                 
-               )
+               ),
+        .target(
+            name: "HomeModuleTests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "io.ios.HomeModuleTests",
+            infoPlist: .default,
+            sources: ["Tests/**"],
+            resources: [],
+            dependencies: [.target(name: "HomeModule")]
+        ),
     ]
 )
