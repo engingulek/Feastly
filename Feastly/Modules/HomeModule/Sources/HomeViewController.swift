@@ -16,12 +16,27 @@ class HomeViewController: UIViewController {
     private lazy var kitchenTitleLabel = UILabel.titleUILabel()
     private lazy var offerTitleLabel = UILabel.titleUILabel()
     private lazy var searchTextField = UISearchTextField()
+    private lazy var changeArrayTypeButton : UIButton = {
+        let button = UIButton()
+ 
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+        button.sizeToFit()
+        button.center = view.center
+        button.tintColor = UIColor(hex: ColorTheme.secondaryLabelColor.rawValue)
+        button.setTitleColor( UIColor(hex: ColorTheme.secondaryLabelColor.rawValue), for: .normal) 
+        button.addAction(changeArrayTypeButtonAction, for: .touchUpInside)
+        return button
+    }()
     
+    private lazy var changeArrayTypeButtonAction : UIAction = UIAction { _ in
+        self.presenter.changeOfferArrayDesign()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         kitchenColectionView.register(KitchenCVC.self, forCellWithReuseIdentifier: KitchenCVC.identifier)
-        offerColectionView.register(OfferCVC.self, forCellWithReuseIdentifier: OfferCVC.identifier)
+        offerColectionView.register(BigOfferCVC.self, forCellWithReuseIdentifier: BigOfferCVC.identifier)
+        offerColectionView.register(SmallOfferCVC.self, forCellWithReuseIdentifier: SmallOfferCVC.identifier)
         presenter.viewDidLoad()
         configureUI()
         searchTextField.addTarget(self,
@@ -55,15 +70,20 @@ class HomeViewController: UIViewController {
             make.height.equalTo(150)
             make.leading.trailing.equalTo(view)
         }
-
+        
         
         view.addSubview(offerTitleLabel)
         offerTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(kitchenColectionView.snp.bottom).offset(10)
             make.leading.equalTo(view).offset(10)
-            make.trailing.equalTo(view)
+            
         }
-
+        
+        view.addSubview(changeArrayTypeButton)
+        changeArrayTypeButton.snp.makeConstraints { make in
+            make.top.equalTo(offerTitleLabel.snp.top)
+            make.trailing.equalTo(view).offset(-10)
+        }
         
         view.addSubview(offerColectionView)
         offerColectionView.snp.makeConstraints { make in
@@ -76,6 +96,13 @@ class HomeViewController: UIViewController {
 
 
 extension HomeViewController : PresenterToViewHomeProtocol {
+    func setChangeArrayButtonType(image: String, text: String) {
+        changeArrayTypeButton.setTitle(text, for: .normal)
+        let image =  UIImage(systemName: image)
+        changeArrayTypeButton.setImage(image, for: .normal)
+        
+    }
+    
     func kitchenCollectionViewReload() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else {return}
@@ -112,27 +139,32 @@ extension HomeViewController : PresenterToViewHomeProtocol {
 
 extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return presenter.numberOfItemsIn(tag: collectionView.tag)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch collectionView.tag {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: KitchenCVC.identifier, for: indexPath) as? KitchenCVC else {return UICollectionViewCell()}
-            cell.backgroundColor = .red
-            cell.layer.cornerRadius = 10
+            let item = presenter.cellForItem(at: indexPath, tag: 0)
+            cell.backgroundColor = UIColor(hex: item.backColor)
+            cell.layer.cornerRadius = item.cornerRadius
             return cell
         case 1:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: OfferCVC.identifier, for: indexPath) as? OfferCVC else {return UICollectionViewCell()}
-            cell.backgroundColor = .blue
-            cell.layer.cornerRadius = 10
-
-            return cell
+            guard let bigCell = collectionView.dequeueReusableCell(withReuseIdentifier: BigOfferCVC.identifier, 
+                                                                   for: indexPath) as? BigOfferCVC else {return UICollectionViewCell()}
+            guard let smallCell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallOfferCVC.identifier, 
+                                                                     for: indexPath) as? SmallOfferCVC else {return UICollectionViewCell()}
+            let item = presenter.cellForItem(at: indexPath, tag: 1)
+            smallCell.backgroundColor = UIColor(hex: item.backColor)
+            smallCell.layer.cornerRadius = item.cornerRadius
+            bigCell.backgroundColor =  UIColor(hex: item.backColor)
+            bigCell.layer.cornerRadius = item.cornerRadius
+            
+            return item.state ? smallCell : bigCell
         default:
             return UICollectionViewCell()
-            
         }
-     
     }
 }
 
@@ -146,24 +178,22 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout {
             
             return CGSize(width: cellWidth, height: cellWidth * 1.2)
         case 1:
-            
-            let width = UIScreen.main.bounds.width
-            let height = UIScreen.main.bounds.height
-    
-            
-            return CGSize(width: width - 10, height: height / 4)
+            let size = presenter.sizeForItemAt(tag: 1,
+                                               width: UIScreen.main.bounds.width,
+                                               height: UIScreen.main.bounds.height)
+            return size
         default:
             return CGSize(width: 0, height: 0)
             
         }
-     
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         10
     }
     
-   
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     }

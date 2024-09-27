@@ -82,8 +82,123 @@ final class HomeModuleTests : XCTestCase {
         XCTAssertTrue(view.invokedsetBackColorAble)
         XCTAssertEqual(view.invokedsetBackColorAbleCount, 1)
         XCTAssertEqual(view.invokedsetBackColorAbleData.map(\.color),["#e0e0e0"])
+    }
+    
+    
+    func test_cellForItemTag0_returnStateBackcolorCornerradius(){
+        presenter.viewDidLoad()
+        let indexPath : IndexPath = [0,0]
+        let item = presenter.cellForItem(at: indexPath, tag: 0)
         
+        XCTAssertEqual(item.state,false)
+        XCTAssertEqual(item.backColor, "#FFFFFF")
+        XCTAssertEqual(item.cornerRadius, 10)
+    }
+    
+    
+    func test_WhenofferArrayDesignStateFalse_cellForItemTag1_returnStateBackcolorCornerradius(){
+        presenter.viewDidLoad()
+        let indexPath : IndexPath = [0,0]
+        let item = presenter.cellForItem(at: indexPath, tag: 1)
         
+        XCTAssertEqual(item.state,false)
+        XCTAssertEqual(item.backColor, "#FFFFFF")
+        XCTAssertEqual(item.cornerRadius, 10)
+    }
+    
+    func test_WhenDidTapOfferArrayDesignStateFalse_cellForItemTag1_returnStateBackcolorCornerradius(){
+        presenter.viewDidLoad()
+        presenter.changeOfferArrayDesign()
+        let indexPath : IndexPath = [0,0]
+        let item = presenter.cellForItem(at: indexPath, tag: 1)
+        
+        XCTAssertEqual(item.state,true)
+        XCTAssertEqual(item.backColor, "#FFFFFF")
+        XCTAssertEqual(item.cornerRadius, 10)
+    }
+    
+    
+    func test_cellForItemTagDefault_returnStateBackcolorCornerradius(){
+        presenter.viewDidLoad()
+        let indexPath : IndexPath = [0,0]
+        let item = presenter.cellForItem(at: indexPath, tag: 3)
+        
+        XCTAssertEqual(item.state,false)
+        XCTAssertEqual(item.backColor, "#e0e0e0")
+        XCTAssertEqual(item.cornerRadius, 0)
+    }
+    
+    
+    
+    func test_tag0_defaultKitchen_returnSizeForItemAt(){
+        presenter.viewDidLoad()
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+     let item =   presenter.sizeForItemAt(tag: 0,
+                                width: width,
+                                height: height )
+        let cellWidth = width / 4
+        XCTAssertEqual(item.width,cellWidth)
+        XCTAssertEqual(item.height, cellWidth*1.2)
+        
+    }
+    
+    
+    func test_tag1_returnSizeForItemAt(){
+        presenter.viewDidLoad()
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+     let item =   presenter.sizeForItemAt(tag: 1,
+                                width: width,
+                                height: height )
+        
+        XCTAssertEqual(item.width,width - 10)
+        XCTAssertEqual(item.height, height / 4)
+        
+    }
+    
+    
+    func test_tag1_changeOfferArrayDesign_returnSizeForItemAt(){
+        presenter.viewDidLoad()
+        presenter.changeOfferArrayDesign()
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+     let item =   presenter.sizeForItemAt(tag: 1,
+                                width: width,
+                                height: height )
+        
+        XCTAssertEqual(item.width,width - 10)
+        XCTAssertEqual(item.height, height / 8)
+        
+    }
+    
+    
+    func test_tagDefault_returnSizeForItemAt(){
+        presenter.viewDidLoad()
+        let width = UIScreen.main.bounds.width
+        let height = UIScreen.main.bounds.height
+     let item =   presenter.sizeForItemAt(tag: 3,
+                                width: width,
+                                height: height )
+        
+        XCTAssertEqual(item.width,0)
+        XCTAssertEqual(item.height,0)
+        
+    }
+    
+    func test_viewDidLoad_returnSetChangeArrayButtonType(){
+        presenter.viewDidLoad()
+        XCTAssertTrue(view.involedsetChangeArrayButtonType)
+        XCTAssertEqual(view.involedsetChangeArrayButtonTypeCount, 1)
+        XCTAssertEqual(view.involedsetChangeArrayButtonTypeData.map(\.image),["lineweight"])
+        
+    }
+    
+    func test_WhenChangeOfferArrayDesign_returnSetChangeArrayButtonType(){
+        presenter.changeOfferArrayDesign()
+        XCTAssertTrue(view.involedsetChangeArrayButtonType)
+        XCTAssertEqual(view.involedsetChangeArrayButtonTypeCount, 1)
+        XCTAssertEqual(view.involedsetChangeArrayButtonTypeData.map(\.image),["list.dash"])
         
     }
 

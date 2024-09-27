@@ -14,5 +14,8 @@ public enum ColorTheme : String {
     case primaryBackColor = "#e0e0e0"
     /// is white (#FFFFFF)
     case secondaryBackColor = "#FFFFFF"
+    
+    /// is orange (#FF6600)
+    case secondaryLabelColor = "#FF6600"
 
 }

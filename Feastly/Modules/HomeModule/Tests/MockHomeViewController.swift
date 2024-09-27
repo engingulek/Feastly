@@ -11,6 +11,8 @@ import Foundation
 
 class MockHomeViewController : PresenterToViewHomeProtocol {
     
+
+    
     var invokedkitchenCollectionViewReload:Bool = false
     var invokedkitchenCollectionViewReloadCount:Int = 0
     func kitchenCollectionViewReload() {
@@ -56,6 +58,19 @@ class MockHomeViewController : PresenterToViewHomeProtocol {
         invokedsetBackColorAbleCount += 1
         invokedsetBackColorAbleData.append((color:color,()))
     }
+    
+    var involedsetChangeArrayButtonType:Bool = false
+    var involedsetChangeArrayButtonTypeCount:Int = 0
+    var involedsetChangeArrayButtonTypeData =  [(image:String,text:String)]()
+    func setChangeArrayButtonType(image: String, text: String) {
+         involedsetChangeArrayButtonType = true
+         involedsetChangeArrayButtonTypeCount += 1
+        
+        involedsetChangeArrayButtonTypeData.append((image:image,text:text))
+    }
+    
+    
+    
     
     
 }
