@@ -6,14 +6,16 @@
 //
 
 import Foundation
+import CommonKit
 
+typealias Kits = UIViewAble
 
 protocol ViewToPresenterHomeProtocol {
     var view : PresenterToViewHomeProtocol? {get}
     func viewDidLoad()
 }
 
-protocol PresenterToViewHomeProtocol:AnyObject{
+protocol PresenterToViewHomeProtocol:AnyObject,Kits{
     func kitchenCollectionViewReload()
     func kitchenCollectionViewPrepare()
     

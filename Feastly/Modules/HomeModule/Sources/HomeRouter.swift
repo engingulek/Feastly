@@ -13,6 +13,10 @@ public class HomeRouter : HomeModuleProtocol {
     public init() { }
     public func createHomeViewController() -> UIViewController {
         let view = HomeViewController()
+        let interactor = HomeInteractor()
+        let presenter : ViewToPresenterHomeProtocol & InteractorToPresenterHomeProtocol = HomePresenter(view: view)
+        view.presenter = presenter
+        interactor.presenter = presenter
         return view
     }
 }

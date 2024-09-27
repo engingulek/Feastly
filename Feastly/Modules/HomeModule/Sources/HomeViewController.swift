@@ -8,11 +8,10 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    private lazy var presenter : ViewToPresenterHomeProtocol = HomePresenter(view: self)
+     lazy var presenter : ViewToPresenterHomeProtocol = HomePresenter(view: self)
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.viewDidLoad()
-        view.backgroundColor = .red
     }
 }
 

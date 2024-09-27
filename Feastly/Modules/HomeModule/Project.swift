@@ -19,6 +19,7 @@ let homeModule = Project (
                 sources: "Sources/**",
                 dependencies: [
                     .project(target: "HomeModuleProtocol", path: .relativeToRoot("Modules/HomeModule")),
+                    .project(target: "CommonKit", path: .relativeToRoot("Kits/CommonKit"))
                     
                 ]
                 

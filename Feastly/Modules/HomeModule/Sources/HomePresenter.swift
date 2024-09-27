@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import CommonKit
 final class HomePresenter {
     weak var view : PresenterToViewHomeProtocol?
     init(view: PresenterToViewHomeProtocol) {
@@ -18,11 +18,14 @@ final class HomePresenter {
 //MARK: ViewToPresenterHomeProtocol
 extension HomePresenter : ViewToPresenterHomeProtocol {
     func viewDidLoad() {
+        
         view?.kitchenCollectionViewPrepare()
         view?.kitchenCollectionViewReload()
         
         view?.offerCollectionViewPrepare()
         view?.offerCollectionViewReload()
+        
+        view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
     }
     
     
