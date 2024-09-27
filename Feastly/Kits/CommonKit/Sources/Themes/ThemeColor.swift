@@ -11,7 +11,7 @@ import UIKit
 public enum ColorTheme : String {
     
     /// is lightGray (#F5F5F7)
-    case primaryBackColor = "##e0e0e0"
+    case primaryBackColor = "#e0e0e0"
     /// is white (#FFFFFF)
     case secondaryBackColor = "#FFFFFF"
 
