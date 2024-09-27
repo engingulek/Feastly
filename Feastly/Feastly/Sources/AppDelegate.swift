@@ -7,7 +7,8 @@
 
 import Foundation
 import UIKit
-
+import DependencyKit
+import HomeModuleProtocol
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -16,8 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        let view = ViewController()
-        window?.rootViewController = view
+        let dependencyRegister = DependencyRegister()
+        dependencyRegister.registerDependecies()
+        @Dependency var homeModuleProtocol : HomeModuleProtocol
+        let view = homeModuleProtocol.createHomeViewController()
+        window?.rootViewController =  view
         window?.makeKeyAndVisible()
         return true
     }
