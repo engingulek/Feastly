@@ -13,6 +13,7 @@ typealias Kits = UIViewAble
 protocol ViewToPresenterHomeProtocol {
     var view : PresenterToViewHomeProtocol? {get}
     func viewDidLoad()
+    func searchAction(text:String?)
 }
 
 protocol PresenterToViewHomeProtocol:AnyObject,Kits{
@@ -22,7 +23,7 @@ protocol PresenterToViewHomeProtocol:AnyObject,Kits{
     func offerCollectionViewReload()
     func offerCollectionViewPrepare()
     
-    
+    func setTitles(kitchenText:String,offerText:String)
 }
 
 

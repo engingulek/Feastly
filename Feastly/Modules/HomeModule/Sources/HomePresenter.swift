@@ -17,6 +17,8 @@ final class HomePresenter {
 
 //MARK: ViewToPresenterHomeProtocol
 extension HomePresenter : ViewToPresenterHomeProtocol {
+    
+    
     func viewDidLoad() {
         
         view?.kitchenCollectionViewPrepare()
@@ -26,6 +28,12 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         view?.offerCollectionViewReload()
         
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
+        view?.setTitles(kitchenText: TitleTheme.kitchen.rawValue,
+                        offerText: TitleTheme.offer.rawValue)
+    }
+    
+    func searchAction(text: String?) {
+        print(text)
     }
     
     
