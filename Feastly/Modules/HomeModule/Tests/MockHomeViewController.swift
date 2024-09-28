@@ -10,6 +10,10 @@ import Foundation
 
 
 class MockHomeViewController : PresenterToViewHomeProtocol {
+    
+    
+  
+    
 
     var invokedkitchenCollectionViewReload:Bool = false
     var invokedkitchenCollectionViewReloadCount:Int = 0
@@ -25,19 +29,24 @@ class MockHomeViewController : PresenterToViewHomeProtocol {
         invokedKitchenCollectionViewPrepareCount += 1
     }
     
-    var invokedofferCollectionViewReload:Bool = false
-    var invokedofferCollectionViewReloadCount:Int = 0
-    func offerCollectionViewReload() {
-        invokedofferCollectionViewReload = true
-        invokedofferCollectionViewReloadCount += 1
+    
+
+    
+    
+    var invokedrestaurantCollectionViewPrepare:Bool = false
+    var invokedrestaurantCollectionViewPrepareCount:Int = 0
+    func restaurantCollectionViewPrepare() {
+        invokedrestaurantCollectionViewPrepare = true
+        invokedrestaurantCollectionViewPrepareCount += 1
     }
     
-    var invokedofferCollectionViewPrepare:Bool = false
-    var invokedOfferCollectionViewPrepareCount:Int = 0
-    func offerCollectionViewPrepare() {
-        invokedofferCollectionViewPrepare = true
-        invokedOfferCollectionViewPrepareCount += 1
+    var invokedrestaurantCollectionViewReload:Bool = false
+    var invokedrestaurantCollectionViewReloadCount:Int = 0
+    func restaurantCollectionViewReload() {
+        invokedrestaurantCollectionViewReload = true
+        invokedrestaurantCollectionViewReloadCount += 1
     }
+    
     
     var invokedSetTitles:Bool = false
     var invokedSetTitlesCount:Int = 0

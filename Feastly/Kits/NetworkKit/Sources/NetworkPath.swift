@@ -9,6 +9,7 @@ import Foundation
 
 public enum NetworkPath{
     case kitchen
+    case restaurant
 }
 
 
@@ -22,6 +23,8 @@ extension NetworkPath : TargetType {
         switch self {
         case .kitchen:
             return Constants.kitchen.rawValue + Constants.getAll.rawValue
+        case .restaurant:
+            return Constants.restaurant.rawValue + Constants.getAll.rawValue
         }
     }
     

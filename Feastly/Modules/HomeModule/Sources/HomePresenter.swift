@@ -7,16 +7,21 @@
 
 import Foundation
 import CommonKit
-
+import CoreLocation
 final class HomePresenter {
     weak var view : PresenterToViewHomeProtocol?
     private let interactor :  PresenterToInteractorHomeProtocol
-    private var offerArrayDesignState : Bool = false
+    private var restaurantArrayDesignState : Bool = false
     private var kitchenList:[Kitchen] = []
+    private var restaurantLit:[Restaurant] = []
+    
+    private let locationManager = CLLocationManager()
     init(view: PresenterToViewHomeProtocol,interactor:PresenterToInteractorHomeProtocol) {
         self.view = view
         self.interactor = interactor
+        
     }
+    
     private func fetchKithen() async {
         do{
             try await interactor.fetchKitches()
@@ -26,6 +31,18 @@ final class HomePresenter {
                                       actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
         }
     }
+    
+    
+    private func fetchRestaurant() async {
+        do{
+            try await interactor.fetchRestaurant()
+        }catch{
+            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                      message: TextTheme.primaryErrorMessage.rawValue,
+                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+        }
+    }
+    
 }
 
 
@@ -37,17 +54,20 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         view?.kitchenCollectionViewPrepare()
         view?.kitchenCollectionViewReload()
         
-        view?.offerCollectionViewPrepare()
-        view?.offerCollectionViewReload()
+        view?.restaurantCollectionViewPrepare()
+        view?.restaurantCollectionViewReload()
         
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
         view?.setTitles(kitchenText: TextTheme.kitchen.rawValue,
-                        offerText: TextTheme.offer.rawValue)
+                        offerText: TextTheme.restaurants.rawValue)
         
         view?.setChangeArrayButtonType(image: "lineweight", text: TextTheme.view.rawValue)
+
         
+       
         Task{
             await fetchKithen()
+            await fetchRestaurant()
         }
     }
     
@@ -56,16 +76,31 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
     }
     
     func changeOfferArrayDesign() {
-        offerArrayDesignState.toggle()
+        restaurantArrayDesignState.toggle()
         let text =  TextTheme.view.rawValue
-        let image = offerArrayDesignState ?  "list.dash" : "lineweight"
+        let image = restaurantArrayDesignState ?  "list.dash" : "lineweight"
         view?.setChangeArrayButtonType(image: image, text: text)
-        view?.offerCollectionViewReload()
+        view?.restaurantCollectionViewReload()
     }
     
     func cellItemForKitchen(at indexPath: IndexPath) -> Kitchen {
         let kitchen = kitchenList[indexPath.item]
         return kitchen
+    }
+    
+    func cellItemForRestaurant(at indexPath: IndexPath) -> RestaurantResponse {
+        let restaurant = restaurantLit[indexPath.item]
+        let kitches = restaurant.kitchens.map { $0.name }.joined(separator:", ")
+        let restaurantLocation = CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude)
+        //NOTE: Detafault Location was used because CLLocation gave error on simulator.
+        let userLocation = CLLocation(latitude: 41.09732, longitude: 29.03126)
+        let km = restaurantLocation.distance(from: userLocation) / 1000
+        let time = km / 25
+        let restaurantInfo = " * \(String(format: "%.2f", time))dk * \(String(format: "%.2f", km))km * \(restaurant.minWage)TL"
+        return RestaurantResponse(id: restaurant.id,
+                                  imageURL: restaurant.imageURL,
+                                  name: restaurant.name,
+                                  kitches: kitches, restaurantInfo: restaurantInfo)
     }
 
 }
@@ -79,7 +114,7 @@ extension HomePresenter {
         case 0:
             return kitchenList.count
         case 1:
-            return 10
+            return restaurantLit.count
         default:
             return 0
         }
@@ -95,7 +130,7 @@ extension HomePresenter {
                     backColor:ColorTheme.secondaryBackColor.rawValue,
                     cornerRadius:10)
         case 1:
-            return (state:offerArrayDesignState,
+            return (state:restaurantArrayDesignState,
                     backColor:ColorTheme.secondaryBackColor.rawValue,
                     cornerRadius:10)
         default:
@@ -116,7 +151,7 @@ extension HomePresenter {
         case 1:
           
             
-            return offerArrayDesignState ? 
+            return restaurantArrayDesignState ? 
             CGSize(width: width - 10, height: height / 8)
             :
             CGSize(width: width - 10, height: height / 4)
@@ -135,10 +170,13 @@ extension HomePresenter:InteractorToPresenterHomeProtocol {
     }
     
 
-    
-    func sendOfferData() {
-        
+    func sendRestaurantData(restaurant:[Restaurant]) {
+        restaurantLit = restaurant
+        view?.restaurantCollectionViewReload()
     }
     
-    
 }
+
+
+
+

@@ -20,8 +20,13 @@ class HomeInteractor : PresenterToInteractorHomeProtocol {
         
     }
     
-    func fetchOffer() async throws {
-        presenter?.sendOfferData()
+    func fetchRestaurant() async throws {
+        do{
+            let response = try await networkManager.fetch(target: .restaurant, responseClass: DataResult<[Restaurant]>.self)
+            presenter?.sendRestaurantData(restaurant: response.data)
+        }catch{
+            throw error
+        }
     }
     
     
