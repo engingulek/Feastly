@@ -236,5 +236,42 @@ final class HomeModuleTests : XCTestCase {
         }
         wait(for: [expectation], timeout: 5)
     }
+    
+    
+    
+    func test_fetchRestaurant_success_shouldReloadCollectionView(){
+        let expectation = XCTestExpectation(description: "Async task completed")
+        XCTAssertFalse(view.invokedrestaurantCollectionViewReload)
+        XCTAssertEqual(view.invokedrestaurantCollectionViewPrepareCount,0)
+        presenter.viewDidLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            XCTAssertTrue(self.view.invokedrestaurantCollectionViewReload)
+            XCTAssertEqual(self.view.invokedrestaurantCollectionViewPrepareCount,1)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
+    }
+    
+    
+    func test_fetchRestaurant_error_shouldCreateAlertMessage(){
+        let expectation = XCTestExpectation(description: "Async task completed")
+        
+        XCTAssertFalse(view.invokedrestaurantCollectionViewReload)
+        XCTAssertEqual(view.invokedrestaurantCollectionViewPrepareCount,0)
+        
+        interactor.mockFetchRestaurantError = true
+        presenter.viewDidLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            XCTAssertEqual(self.view.involedCreateAlertMessageData.map(\.title),["Error"])
+            XCTAssertEqual(self.view.involedCreateAlertMessageData.map(\.message),["Something went wrong"])
+            XCTAssertEqual(self.view.involedCreateAlertMessageData.map(\.actionTitle),["Ok"])
+            
+            XCTAssertEqual(self.view.involedCreateAlertMessageCount,1)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
+    }
 
 }

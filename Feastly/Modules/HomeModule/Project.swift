@@ -19,7 +19,12 @@ let homeModule = Project (
                 destinations: .iOS,
                 product: .staticFramework,
                 bundleId: "com.ios.HomeModule",
-                infoPlist: .default,
+                infoPlist: .extendingDefault(
+                    with: [
+                        "NSLocationWhenInUseUsageDescription": "Konum bilgilerinizi kullanmak için izin gerekmektedir.",
+                        "NSLocationAlwaysUsageDescription": "Konum bilgilerinizi her zaman kullanmak için izin gerekmektedir."
+                    ]
+                ),
                 sources: "Sources/**",
                 dependencies: [
                     .project(target: "HomeModuleProtocol", path: .relativeToRoot("Modules/HomeModule")),

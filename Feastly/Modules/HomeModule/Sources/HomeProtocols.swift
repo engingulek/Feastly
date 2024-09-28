@@ -10,7 +10,7 @@ import CommonKit
 
 typealias Kits = UIViewAble & AlertMessageAble
 
-protocol ViewToPresenterHomeProtocol {
+protocol ViewToPresenterHomeProtocol{
     var view : PresenterToViewHomeProtocol? {get}
     func viewDidLoad()
     func searchAction(text:String?)

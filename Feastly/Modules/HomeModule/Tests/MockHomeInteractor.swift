@@ -16,6 +16,7 @@ class MockHomeInteractor : PresenterToInteractorHomeProtocol {
     let kitchens : [Kitchen] = []
     let offer:[String]  = []
     var mockFetchKitchesReturnError = false
+    var mockFetchRestaurantError = false
     var presenter : InteractorToPresenterHomeProtocol!
     
     func fetchKitches() async throws {
@@ -25,7 +26,9 @@ class MockHomeInteractor : PresenterToInteractorHomeProtocol {
     }
     
     func fetchRestaurant() async throws {
-        
+        if mockFetchRestaurantError {
+            throw MockError.mockError
+        }
     }
     
     

@@ -7,7 +7,7 @@
 
 import Foundation
 import CommonKit
-
+import CoreLocation
 final class HomePresenter {
     weak var view : PresenterToViewHomeProtocol?
     private let interactor :  PresenterToInteractorHomeProtocol
@@ -15,9 +15,11 @@ final class HomePresenter {
     private var kitchenList:[Kitchen] = []
     private var restaurantLit:[Restaurant] = []
     
+    private let locationManager = CLLocationManager()
     init(view: PresenterToViewHomeProtocol,interactor:PresenterToInteractorHomeProtocol) {
         self.view = view
         self.interactor = interactor
+        
     }
     
     private func fetchKithen() async {
@@ -41,9 +43,6 @@ final class HomePresenter {
         }
     }
     
-
-    
-    
 }
 
 
@@ -63,7 +62,9 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
                         offerText: TextTheme.restaurants.rawValue)
         
         view?.setChangeArrayButtonType(image: "lineweight", text: TextTheme.view.rawValue)
+
         
+       
         Task{
             await fetchKithen()
             await fetchRestaurant()
@@ -90,7 +91,12 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
     func cellItemForRestaurant(at indexPath: IndexPath) -> RestaurantResponse {
         let restaurant = restaurantLit[indexPath.item]
         let kitches = restaurant.kitchens.map { $0.name }.joined(separator:", ")
-        let restaurantInfo = "\(restaurant.minWage)TL"
+        let restaurantLocation = CLLocation(latitude: restaurant.latitude, longitude: restaurant.longitude)
+        //NOTE: Detafault Location was used because CLLocation gave error on simulator.
+        let userLocation = CLLocation(latitude: 41.09732, longitude: 29.03126)
+        let km = restaurantLocation.distance(from: userLocation) / 1000
+        let time = km / 25
+        let restaurantInfo = " * \(String(format: "%.2f", time))dk * \(String(format: "%.2f", km))km * \(restaurant.minWage)TL"
         return RestaurantResponse(id: restaurant.id,
                                   imageURL: restaurant.imageURL,
                                   name: restaurant.name,
@@ -166,8 +172,11 @@ extension HomePresenter:InteractorToPresenterHomeProtocol {
 
     func sendRestaurantData(restaurant:[Restaurant]) {
         restaurantLit = restaurant
-        print(restaurantLit)
         view?.restaurantCollectionViewReload()
     }
     
 }
+
+
+
+
