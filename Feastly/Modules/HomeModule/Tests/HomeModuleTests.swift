@@ -11,11 +11,13 @@ import XCTest
 final class HomeModuleTests : XCTestCase {
     private var presenter: HomePresenter!
     private var view : MockHomeViewController!
+    private var interactor : MockHomeInteractor!
     
     override  func setUp() {
         super.setUp()
         view = .init()
-        presenter = .init(view: view)
+        interactor = .init()
+        presenter = .init(view: view,interactor: interactor)
     }
     
     override func tearDown() {
@@ -199,7 +201,36 @@ final class HomeModuleTests : XCTestCase {
         XCTAssertTrue(view.involedsetChangeArrayButtonType)
         XCTAssertEqual(view.involedsetChangeArrayButtonTypeCount, 1)
         XCTAssertEqual(view.involedsetChangeArrayButtonTypeData.map(\.image),["list.dash"])
+    }
+    
+    func test_fetchKitchens_success_shouldReloadCollectionView(){
+        let expectation = XCTestExpectation(description: "Async task completed")
+        XCTAssertFalse(view.invokedkitchenCollectionViewReload)
+        XCTAssertEqual(view.invokedOfferCollectionViewPrepareCount,0)
+        presenter.viewDidLoad()
         
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            XCTAssertTrue(self.view.invokedkitchenCollectionViewReload)
+            XCTAssertEqual(self.view.invokedKitchenCollectionViewPrepareCount,1)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
+    }
+    
+    
+    func test_fetchKitchens_error_shouldReloadCollectionView(){
+        let expectation = XCTestExpectation(description: "Async task completed")
+        XCTAssertFalse(view.invokedkitchenCollectionViewReload)
+        XCTAssertEqual(view.invokedOfferCollectionViewPrepareCount,0)
+        interactor.mockFetchKitchesReturnError = true
+        presenter.viewDidLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            XCTAssertTrue(self.view.invokedkitchenCollectionViewReload)
+            XCTAssertEqual(self.view.invokedKitchenCollectionViewPrepareCount,1)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
     }
 
 }
