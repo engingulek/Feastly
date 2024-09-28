@@ -10,17 +10,26 @@ import CommonKit
 
 final class HomePresenter {
     weak var view : PresenterToViewHomeProtocol?
+    private let interactor :  PresenterToInteractorHomeProtocol
     private var offerArrayDesignState : Bool = false
-    init(view: PresenterToViewHomeProtocol) {
+    private var kitchenList:[Kitchen] = []
+    init(view: PresenterToViewHomeProtocol,interactor:PresenterToInteractorHomeProtocol) {
         self.view = view
+        self.interactor = interactor
+    }
+    private func fetchKithen() async {
+        do{
+            try await interactor.fetchKitches()
+        }catch{
+            print("Kitchen error presenter")
+        }
     }
 }
 
 
 //MARK: ViewToPresenterHomeProtocol
 extension HomePresenter : ViewToPresenterHomeProtocol {
- 
-    
+
     func viewDidLoad() {
         
         view?.kitchenCollectionViewPrepare()
@@ -34,6 +43,10 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
                         offerText: TitleTheme.offer.rawValue)
         
         view?.setChangeArrayButtonType(image: "lineweight", text: "View")
+        
+        Task{
+            await fetchKithen()
+        }
     }
     
     func searchAction(text: String?) {
@@ -48,6 +61,11 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         view?.offerCollectionViewReload()
     }
     
+    func cellItemForKitchen(at indexPath: IndexPath) -> Kitchen {
+        let kitchen = kitchenList[indexPath.item]
+        return kitchen
+    }
+
 }
 
 //MARK: ViewToPresenterHomeProtocol + UICollectionViewDelegate,UICollectionViewDataSource
@@ -57,7 +75,7 @@ extension HomePresenter {
     func numberOfItemsIn(tag: Int) -> Int {
         switch tag {
         case 0:
-            return 10
+            return kitchenList.count
         case 1:
             return 10
         default:
@@ -92,7 +110,7 @@ extension HomePresenter {
             
             let cellWidth = width / 4
             
-            return CGSize(width: cellWidth, height: cellWidth * 1.2)
+            return CGSize(width: cellWidth - 10, height: cellWidth * 1.2)
         case 1:
           
             
@@ -109,9 +127,12 @@ extension HomePresenter {
 
 //MARK: InteractorToPresenterHomeProtocol
 extension HomePresenter:InteractorToPresenterHomeProtocol {
-    func sendKitchenData() {
-        
+    func sendKitchenData(kitchens: [Kitchen]) {
+        kitchenList = kitchens
+        view?.kitchenCollectionViewReload()
     }
+    
+
     
     func sendOfferData() {
         

@@ -6,11 +6,18 @@
 //
 
 import Foundation
-
+import NetworkKit
 class HomeInteractor : PresenterToInteractorHomeProtocol {
     var presenter : InteractorToPresenterHomeProtocol?
+    private let networkManager : NetworkManagerProtocol = NetworkManager()
     func fetchKitches() async throws {
-        presenter?.sendKitchenData()
+        do{
+            let response = try await networkManager.fetch(target: .kitchen, responseClass: DataResult<[Kitchen]>.self)
+            presenter?.sendKitchenData(kitchens:response.data)
+        }catch{
+            throw error
+        }
+        
     }
     
     func fetchOffer() async throws {
