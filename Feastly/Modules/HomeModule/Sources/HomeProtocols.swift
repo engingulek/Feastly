@@ -8,7 +8,7 @@
 import Foundation
 import CommonKit
 
-typealias Kits = UIViewAble
+typealias Kits = UIViewAble & AlertMessageAble
 
 protocol ViewToPresenterHomeProtocol {
     var view : PresenterToViewHomeProtocol? {get}

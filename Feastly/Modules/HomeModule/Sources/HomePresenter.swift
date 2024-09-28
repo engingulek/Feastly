@@ -21,7 +21,9 @@ final class HomePresenter {
         do{
             try await interactor.fetchKitches()
         }catch{
-            print("Kitchen error presenter")
+            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                      message: TextTheme.primaryErrorMessage.rawValue, 
+                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
         }
     }
 }
@@ -39,10 +41,10 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         view?.offerCollectionViewReload()
         
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
-        view?.setTitles(kitchenText: TitleTheme.kitchen.rawValue,
-                        offerText: TitleTheme.offer.rawValue)
+        view?.setTitles(kitchenText: TextTheme.kitchen.rawValue,
+                        offerText: TextTheme.offer.rawValue)
         
-        view?.setChangeArrayButtonType(image: "lineweight", text: "View")
+        view?.setChangeArrayButtonType(image: "lineweight", text: TextTheme.view.rawValue)
         
         Task{
             await fetchKithen()
@@ -55,7 +57,7 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
     
     func changeOfferArrayDesign() {
         offerArrayDesignState.toggle()
-        let text = "View"
+        let text =  TextTheme.view.rawValue
         let image = offerArrayDesignState ?  "list.dash" : "lineweight"
         view?.setChangeArrayButtonType(image: image, text: text)
         view?.offerCollectionViewReload()

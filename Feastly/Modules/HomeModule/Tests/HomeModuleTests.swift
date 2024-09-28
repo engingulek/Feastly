@@ -232,5 +232,26 @@ final class HomeModuleTests : XCTestCase {
         }
         wait(for: [expectation], timeout: 5)
     }
+    
+    
+    func test_fetchKitchens_error_shouldCreateAlertMessage(){
+        let expectation = XCTestExpectation(description: "Async task completed")
+        
+        XCTAssertFalse(view.involedCreateAlertMessage)
+        XCTAssertEqual(view.involedCreateAlertMessageCount,0)
+        
+        interactor.mockFetchKitchesReturnError = true
+        presenter.viewDidLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            XCTAssertEqual(self.view.involedCreateAlertMessageData.map(\.title),["Error"])
+            XCTAssertEqual(self.view.involedCreateAlertMessageData.map(\.message),["Something went wrong"])
+            XCTAssertEqual(self.view.involedCreateAlertMessageData.map(\.actionTitle),["Ok"])
+            
+            XCTAssertEqual(self.view.involedCreateAlertMessageCount,1)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
+    }
 
 }
