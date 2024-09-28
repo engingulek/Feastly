@@ -19,3 +19,24 @@ extension UIViewAble where Self : UIViewController  {
     }
     
 }
+
+
+
+//MARK: AlertMessageAble
+public protocol AlertMessageAble {
+    func createAlertMesssage(title:String,message:String,actionTitle:String)
+   
+}
+
+extension AlertMessageAble  where Self : UIViewController {
+    public  func createAlertMesssage(title:String,message:String,actionTitle:String){
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: actionTitle, style: .default))
+        self.present(alert, animated: true)
+        
+    }
+}

@@ -7,7 +7,15 @@
 
 import Foundation
 
-public enum TitleTheme:String {
+public enum TextTheme:String {
+    case none = ""
     case kitchen = "Kitchen"
     case offer = "Offer"
+    case view = "View"
+    /// is Error
+    case primaryErrorTitle = "Error"
+    /// is Ok
+    case primaryErrorActionTitle = "Ok"
+    /// is Something went wrong
+    case primaryErrorMessage = "Something went wrong"
 }

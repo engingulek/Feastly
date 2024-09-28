@@ -8,7 +8,7 @@
 import Foundation
 import CommonKit
 
-typealias Kits = UIViewAble
+typealias Kits = UIViewAble & AlertMessageAble
 
 protocol ViewToPresenterHomeProtocol {
     var view : PresenterToViewHomeProtocol? {get}
@@ -21,6 +21,8 @@ protocol ViewToPresenterHomeProtocol {
                                                          backColor:String,
                                                          cornerRadius:CGFloat)
     func sizeForItemAt(tag:Int,width:CGFloat,height:CGFloat) -> CGSize
+    
+    func cellItemForKitchen(at indexPath:IndexPath) -> Kitchen
 }
 
 protocol PresenterToViewHomeProtocol:AnyObject,Kits{
@@ -42,7 +44,7 @@ protocol PresenterToInteractorHomeProtocol {
 
 
 protocol InteractorToPresenterHomeProtocol{
-    func sendKitchenData()
+    func sendKitchenData(kitchens:[Kitchen])
     func sendOfferData()
 }
 

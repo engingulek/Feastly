@@ -10,7 +10,10 @@ import ProjectDescription
 
 let homeModule = Project (
     name: "HomeModule",
-    packages: [.package(url: "https://github.com/SnapKit/SnapKit", from: "5.7.1")],
+    packages: [
+        .package(url: "https://github.com/SnapKit/SnapKit", from: "5.7.1"),
+        .package(url:"https://github.com/onevcat/Kingfisher.git",from:"8.0.2")
+    ],
     targets: [
         .target(name: "HomeModule",
                 destinations: .iOS,
@@ -22,7 +25,8 @@ let homeModule = Project (
                     .project(target: "HomeModuleProtocol", path: .relativeToRoot("Modules/HomeModule")),
                     .project(target: "CommonKit", path: .relativeToRoot("Kits/CommonKit")),
                     .package(product: "SnapKit"),
-                    .project(target: "NetworkKit", path: .relativeToRoot("Kits/NetworkKit"))
+                    .project(target: "NetworkKit", path: .relativeToRoot("Kits/NetworkKit")),
+                    .package(product:"Kingfisher")
                 ]
                 
                ),

@@ -10,7 +10,7 @@ import SnapKit
 import CommonKit
 class HomeViewController: UIViewController {
     
-    lazy var presenter : ViewToPresenterHomeProtocol = HomePresenter(view: self)
+    lazy var presenter : ViewToPresenterHomeProtocol = HomePresenter(view: self,interactor: HomeInteractor())
     private lazy var kitchenColectionView = UICollectionView.primaryCollectionView(tag: 0,scroolDirection: .horizontal)
     private lazy var offerColectionView = UICollectionView.primaryCollectionView(tag: 1,scroolDirection: .vertical)
     private lazy var kitchenTitleLabel = UILabel.titleUILabel()
@@ -18,12 +18,12 @@ class HomeViewController: UIViewController {
     private lazy var searchTextField = UISearchTextField()
     private lazy var changeArrayTypeButton : UIButton = {
         let button = UIButton()
- 
+        
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         button.sizeToFit()
         button.center = view.center
         button.tintColor = UIColor(hex: ColorTheme.secondaryLabelColor.rawValue)
-        button.setTitleColor( UIColor(hex: ColorTheme.secondaryLabelColor.rawValue), for: .normal) 
+        button.setTitleColor( UIColor(hex: ColorTheme.secondaryLabelColor.rawValue), for: .normal)
         button.addAction(changeArrayTypeButtonAction, for: .touchUpInside)
         return button
     }()
@@ -147,13 +147,15 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: KitchenCVC.identifier, for: indexPath) as? KitchenCVC else {return UICollectionViewCell()}
             let item = presenter.cellForItem(at: indexPath, tag: 0)
+            let kitchen = presenter.cellItemForKitchen(at: indexPath)
+            cell.configureData(kitchen:kitchen )
             cell.backgroundColor = UIColor(hex: item.backColor)
             cell.layer.cornerRadius = item.cornerRadius
             return cell
         case 1:
-            guard let bigCell = collectionView.dequeueReusableCell(withReuseIdentifier: BigOfferCVC.identifier, 
+            guard let bigCell = collectionView.dequeueReusableCell(withReuseIdentifier: BigOfferCVC.identifier,
                                                                    for: indexPath) as? BigOfferCVC else {return UICollectionViewCell()}
-            guard let smallCell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallOfferCVC.identifier, 
+            guard let smallCell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallOfferCVC.identifier,
                                                                      for: indexPath) as? SmallOfferCVC else {return UICollectionViewCell()}
             let item = presenter.cellForItem(at: indexPath, tag: 1)
             smallCell.backgroundColor = UIColor(hex: item.backColor)
@@ -173,10 +175,10 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView.tag {
         case 0:
-            let width = UIScreen.main.bounds.width
-            let cellWidth = width / 4
-            
-            return CGSize(width: cellWidth, height: cellWidth * 1.2)
+            let size = presenter.sizeForItemAt(tag: 0,
+                                               width: UIScreen.main.bounds.width,
+                                               height: UIScreen.main.bounds.height)
+            return size
         case 1:
             let size = presenter.sizeForItemAt(tag: 1,
                                                width: UIScreen.main.bounds.width,

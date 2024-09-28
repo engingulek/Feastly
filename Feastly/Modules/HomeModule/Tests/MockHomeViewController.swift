@@ -10,9 +10,7 @@ import Foundation
 
 
 class MockHomeViewController : PresenterToViewHomeProtocol {
-    
 
-    
     var invokedkitchenCollectionViewReload:Bool = false
     var invokedkitchenCollectionViewReloadCount:Int = 0
     func kitchenCollectionViewReload() {
@@ -65,9 +63,21 @@ class MockHomeViewController : PresenterToViewHomeProtocol {
     func setChangeArrayButtonType(image: String, text: String) {
          involedsetChangeArrayButtonType = true
          involedsetChangeArrayButtonTypeCount += 1
-        
         involedsetChangeArrayButtonTypeData.append((image:image,text:text))
     }
+    
+    var involedCreateAlertMessage: Bool = false
+    var involedCreateAlertMessageCount: Int = 0
+    var involedCreateAlertMessageData = [(title: String, message: String, actionTitle: String)]()
+    func createAlertMesssage(title: String, message: String, actionTitle: String) {
+         involedCreateAlertMessage = false
+         involedCreateAlertMessageCount += 1
+        involedCreateAlertMessageData.append((title: title, message: message, actionTitle: actionTitle))
+    }
+    
+    
+
+    
     
     
     
