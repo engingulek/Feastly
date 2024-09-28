@@ -15,7 +15,7 @@ public extension Package {
     }
     
     static var alamofire : Self {
-        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.8.1"))
+        .package(url: "https://github.com/Alamofire/Alamofire.git", .upToNextMajor(from: "5.9.1"))
     }
     
     static var kingfisher : Self {
