@@ -13,10 +13,13 @@ final class HomePresenter {
     private let interactor :  PresenterToInteractorHomeProtocol
     private var restaurantArrayDesignState : Bool = false
     private var kitchenList:[Kitchen] = []
+    private var restaurantLit:[Restaurant] = []
+    
     init(view: PresenterToViewHomeProtocol,interactor:PresenterToInteractorHomeProtocol) {
         self.view = view
         self.interactor = interactor
     }
+    
     private func fetchKithen() async {
         do{
             try await interactor.fetchKitches()
@@ -26,6 +29,21 @@ final class HomePresenter {
                                       actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
         }
     }
+    
+    
+    private func fetchRestaurant() async {
+        do{
+            try await interactor.fetchRestaurant()
+        }catch{
+            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                      message: TextTheme.primaryErrorMessage.rawValue,
+                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+        }
+    }
+    
+
+    
+    
 }
 
 
@@ -48,6 +66,7 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         
         Task{
             await fetchKithen()
+            await fetchRestaurant()
         }
     }
     
@@ -67,6 +86,16 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         let kitchen = kitchenList[indexPath.item]
         return kitchen
     }
+    
+    func cellItemForRestaurant(at indexPath: IndexPath) -> RestaurantResponse {
+        let restaurant = restaurantLit[indexPath.item]
+        let kitches = restaurant.kitchens.map { $0.name }.joined(separator:", ")
+        let restaurantInfo = "\(restaurant.minWage)TL"
+        return RestaurantResponse(id: restaurant.id,
+                                  imageURL: restaurant.imageURL,
+                                  name: restaurant.name,
+                                  kitches: kitches, restaurantInfo: restaurantInfo)
+    }
 
 }
 
@@ -79,7 +108,7 @@ extension HomePresenter {
         case 0:
             return kitchenList.count
         case 1:
-            return 10
+            return restaurantLit.count
         default:
             return 0
         }
@@ -135,10 +164,10 @@ extension HomePresenter:InteractorToPresenterHomeProtocol {
     }
     
 
-    
-    func sendOfferData() {
-        
+    func sendRestaurantData(restaurant:[Restaurant]) {
+        restaurantLit = restaurant
+        print(restaurantLit)
+        view?.restaurantCollectionViewReload()
     }
-    
     
 }

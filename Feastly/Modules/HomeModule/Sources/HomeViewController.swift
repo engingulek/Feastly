@@ -161,10 +161,13 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
             guard let smallCell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallRestaurantCVC.identifier,
                                                                      for: indexPath) as? SmallRestaurantCVC else {return UICollectionViewCell()}
             let item = presenter.cellForItem(at: indexPath, tag: 1)
+            let restaurant = presenter.cellItemForRestaurant(at: indexPath)
+            smallCell.configureData(data: restaurant)
             smallCell.backgroundColor = UIColor(hex: item.backColor)
             smallCell.layer.cornerRadius = item.cornerRadius
             bigCell.backgroundColor =  UIColor(hex: item.backColor)
             bigCell.layer.cornerRadius = item.cornerRadius
+            bigCell.configureData(data: restaurant)
             
             return item.state ? smallCell : bigCell
         default:

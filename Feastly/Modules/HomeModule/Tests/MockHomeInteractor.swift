@@ -24,7 +24,7 @@ class MockHomeInteractor : PresenterToInteractorHomeProtocol {
         }
     }
     
-    func fetchOffer() async throws {
+    func fetchRestaurant() async throws {
         
     }
     

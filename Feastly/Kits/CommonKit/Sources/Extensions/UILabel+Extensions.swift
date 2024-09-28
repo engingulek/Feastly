@@ -25,4 +25,23 @@ extension UILabel {
         label.textAlignment = .center
         return label
     }
+    
+    
+    public static func secondaryCellTitleUILabel() -> UILabel {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 15)
+        label.backgroundColor = UIColor(hex: ColorTheme.secondaryBackColor.rawValue)
+        label.textAlignment = .center
+        return label
+    }
+    
+    public static func cellTitleBoldUILabel() -> UILabel {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = .boldSystemFont(ofSize: 18)
+        label.backgroundColor = UIColor(hex: ColorTheme.secondaryBackColor.rawValue)
+        label.textAlignment = .center
+        return label
+    }
 }

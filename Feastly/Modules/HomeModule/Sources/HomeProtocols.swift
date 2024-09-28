@@ -23,6 +23,7 @@ protocol ViewToPresenterHomeProtocol {
     func sizeForItemAt(tag:Int,width:CGFloat,height:CGFloat) -> CGSize
     
     func cellItemForKitchen(at indexPath:IndexPath) -> Kitchen
+    func cellItemForRestaurant(at indexPath:IndexPath) -> RestaurantResponse
 }
 
 protocol PresenterToViewHomeProtocol:AnyObject,Kits{
@@ -39,13 +40,13 @@ protocol PresenterToViewHomeProtocol:AnyObject,Kits{
 
 protocol PresenterToInteractorHomeProtocol {
     func fetchKitches() async throws
-    func fetchOffer() async throws
+    func fetchRestaurant() async throws
 }
 
 
 protocol InteractorToPresenterHomeProtocol{
     func sendKitchenData(kitchens:[Kitchen])
-    func sendOfferData()
+    func sendRestaurantData(restaurant:[Restaurant])
 }
 
 protocol PresenterToRouterHomeProtocol {

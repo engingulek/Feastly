@@ -10,5 +10,6 @@ import Foundation
 public enum Constants : String {
     case baseUrl = "http://localhost:8080/api/feastly"
     case kitchen = "/kitchen"
+    case restaurant = "/restaurant"
     case getAll  = "/getAll"
 }
