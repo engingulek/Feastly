@@ -21,7 +21,8 @@ let homeModule = Project (
                 dependencies: [
                     .project(target: "HomeModuleProtocol", path: .relativeToRoot("Modules/HomeModule")),
                     .project(target: "CommonKit", path: .relativeToRoot("Kits/CommonKit")),
-                    .package(product: "SnapKit")
+                    .package(product: "SnapKit"),
+                    .project(target: "NetworkKit", path: .relativeToRoot("Kits/NetworkKit"))
                 ]
                 
                ),
