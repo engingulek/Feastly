@@ -10,7 +10,7 @@ import Foundation
 public enum TextTheme:String {
     case none = ""
     case kitchen = "Kitchen"
-    case offer = "Offer"
+    case restaurants = "Restaurants"
     case view = "View"
     /// is Error
     case primaryErrorTitle = "Error"

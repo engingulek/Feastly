@@ -7,6 +7,6 @@
 
 import UIKit
 
-class SmallOfferCVC: UICollectionViewCell {
+class SmallRestaurantCVC: UICollectionViewCell {
     static let identifier = "smallOfferCVC"
 }

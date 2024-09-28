@@ -29,8 +29,8 @@ protocol PresenterToViewHomeProtocol:AnyObject,Kits{
     func kitchenCollectionViewReload()
     func kitchenCollectionViewPrepare()
     
-    func offerCollectionViewReload()
-    func offerCollectionViewPrepare()
+    func restaurantCollectionViewPrepare()
+    func restaurantCollectionViewReload()
     
     func setTitles(kitchenText:String,offerText:String)
     func setChangeArrayButtonType(image:String,text:String)

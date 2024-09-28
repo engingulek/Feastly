@@ -21,8 +21,6 @@ class MockHomeInteractor : PresenterToInteractorHomeProtocol {
     func fetchKitches() async throws {
         if mockFetchKitchesReturnError {
             throw MockError.mockError
-        }else{
-            return presenter.sendKitchenData(kitchens: kitchens)
         }
     }
     

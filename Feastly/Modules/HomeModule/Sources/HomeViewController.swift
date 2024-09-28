@@ -12,7 +12,7 @@ class HomeViewController: UIViewController {
     
     lazy var presenter : ViewToPresenterHomeProtocol = HomePresenter(view: self,interactor: HomeInteractor())
     private lazy var kitchenColectionView = UICollectionView.primaryCollectionView(tag: 0,scroolDirection: .horizontal)
-    private lazy var offerColectionView = UICollectionView.primaryCollectionView(tag: 1,scroolDirection: .vertical)
+    private lazy var restaurantColectionView = UICollectionView.primaryCollectionView(tag: 1,scroolDirection: .vertical)
     private lazy var kitchenTitleLabel = UILabel.titleUILabel()
     private lazy var offerTitleLabel = UILabel.titleUILabel()
     private lazy var searchTextField = UISearchTextField()
@@ -35,8 +35,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         kitchenColectionView.register(KitchenCVC.self, forCellWithReuseIdentifier: KitchenCVC.identifier)
-        offerColectionView.register(BigOfferCVC.self, forCellWithReuseIdentifier: BigOfferCVC.identifier)
-        offerColectionView.register(SmallOfferCVC.self, forCellWithReuseIdentifier: SmallOfferCVC.identifier)
+        restaurantColectionView.register(BigRestaurantCVC.self, forCellWithReuseIdentifier: BigRestaurantCVC.identifier)
+        restaurantColectionView.register(SmallRestaurantCVC.self, forCellWithReuseIdentifier: SmallRestaurantCVC.identifier)
         presenter.viewDidLoad()
         configureUI()
         searchTextField.addTarget(self,
@@ -85,8 +85,8 @@ class HomeViewController: UIViewController {
             make.trailing.equalTo(view).offset(-10)
         }
         
-        view.addSubview(offerColectionView)
-        offerColectionView.snp.makeConstraints { make in
+        view.addSubview(restaurantColectionView)
+        restaurantColectionView.snp.makeConstraints { make in
             make.top.equalTo(offerTitleLabel.snp.bottom).offset(10)
             make.leading.trailing.equalTo(view)
             make.bottom.equalTo(view)
@@ -96,6 +96,8 @@ class HomeViewController: UIViewController {
 
 
 extension HomeViewController : PresenterToViewHomeProtocol {
+    
+    
     func setChangeArrayButtonType(image: String, text: String) {
         changeArrayTypeButton.setTitle(text, for: .normal)
         let image =  UIImage(systemName: image)
@@ -116,17 +118,18 @@ extension HomeViewController : PresenterToViewHomeProtocol {
         kitchenColectionView.dataSource = self
     }
     
-    func offerCollectionViewReload() {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else {return}
-            offerColectionView.reloadData()
-            
-        }
+    
+    func restaurantCollectionViewPrepare() {
+        restaurantColectionView.delegate = self
+        restaurantColectionView.dataSource = self
     }
     
-    func offerCollectionViewPrepare() {
-        offerColectionView.delegate = self
-        offerColectionView.dataSource = self
+    func restaurantCollectionViewReload() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {return}
+            restaurantColectionView.reloadData()
+            
+        }
     }
     
     func setTitles(kitchenText: String, offerText: String) {
@@ -153,10 +156,10 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
             cell.layer.cornerRadius = item.cornerRadius
             return cell
         case 1:
-            guard let bigCell = collectionView.dequeueReusableCell(withReuseIdentifier: BigOfferCVC.identifier,
-                                                                   for: indexPath) as? BigOfferCVC else {return UICollectionViewCell()}
-            guard let smallCell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallOfferCVC.identifier,
-                                                                     for: indexPath) as? SmallOfferCVC else {return UICollectionViewCell()}
+            guard let bigCell = collectionView.dequeueReusableCell(withReuseIdentifier: BigRestaurantCVC.identifier,
+                                                                   for: indexPath) as? BigRestaurantCVC else {return UICollectionViewCell()}
+            guard let smallCell = collectionView.dequeueReusableCell(withReuseIdentifier: SmallRestaurantCVC.identifier,
+                                                                     for: indexPath) as? SmallRestaurantCVC else {return UICollectionViewCell()}
             let item = presenter.cellForItem(at: indexPath, tag: 1)
             smallCell.backgroundColor = UIColor(hex: item.backColor)
             smallCell.layer.cornerRadius = item.cornerRadius

@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-class BigOfferCVC: UICollectionViewCell {
-    static let identifier :  String = "offerCVC"
+class BigRestaurantCVC: UICollectionViewCell {
+    static let identifier :  String = "bigRestaurant"
     
 
     

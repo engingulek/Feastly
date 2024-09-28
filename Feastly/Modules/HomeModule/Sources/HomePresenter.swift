@@ -11,7 +11,7 @@ import CommonKit
 final class HomePresenter {
     weak var view : PresenterToViewHomeProtocol?
     private let interactor :  PresenterToInteractorHomeProtocol
-    private var offerArrayDesignState : Bool = false
+    private var restaurantArrayDesignState : Bool = false
     private var kitchenList:[Kitchen] = []
     init(view: PresenterToViewHomeProtocol,interactor:PresenterToInteractorHomeProtocol) {
         self.view = view
@@ -37,12 +37,12 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         view?.kitchenCollectionViewPrepare()
         view?.kitchenCollectionViewReload()
         
-        view?.offerCollectionViewPrepare()
-        view?.offerCollectionViewReload()
+        view?.restaurantCollectionViewPrepare()
+        view?.restaurantCollectionViewReload()
         
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
         view?.setTitles(kitchenText: TextTheme.kitchen.rawValue,
-                        offerText: TextTheme.offer.rawValue)
+                        offerText: TextTheme.restaurants.rawValue)
         
         view?.setChangeArrayButtonType(image: "lineweight", text: TextTheme.view.rawValue)
         
@@ -56,11 +56,11 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
     }
     
     func changeOfferArrayDesign() {
-        offerArrayDesignState.toggle()
+        restaurantArrayDesignState.toggle()
         let text =  TextTheme.view.rawValue
-        let image = offerArrayDesignState ?  "list.dash" : "lineweight"
+        let image = restaurantArrayDesignState ?  "list.dash" : "lineweight"
         view?.setChangeArrayButtonType(image: image, text: text)
-        view?.offerCollectionViewReload()
+        view?.restaurantCollectionViewReload()
     }
     
     func cellItemForKitchen(at indexPath: IndexPath) -> Kitchen {
@@ -95,7 +95,7 @@ extension HomePresenter {
                     backColor:ColorTheme.secondaryBackColor.rawValue,
                     cornerRadius:10)
         case 1:
-            return (state:offerArrayDesignState,
+            return (state:restaurantArrayDesignState,
                     backColor:ColorTheme.secondaryBackColor.rawValue,
                     cornerRadius:10)
         default:
@@ -116,7 +116,7 @@ extension HomePresenter {
         case 1:
           
             
-            return offerArrayDesignState ? 
+            return restaurantArrayDesignState ? 
             CGSize(width: width - 10, height: height / 8)
             :
             CGSize(width: width - 10, height: height / 4)
