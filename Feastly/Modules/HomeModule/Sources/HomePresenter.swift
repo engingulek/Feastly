@@ -11,14 +11,16 @@ import CoreLocation
 final class HomePresenter {
     weak var view : PresenterToViewHomeProtocol?
     private let interactor :  PresenterToInteractorHomeProtocol
+    private let router : PresenterToRouterHomeProtocol
     private var restaurantArrayDesignState : Bool = false
     private var kitchenList:[Kitchen] = []
     private var restaurantLit:[Restaurant] = []
     
     private let locationManager = CLLocationManager()
-    init(view: PresenterToViewHomeProtocol,interactor:PresenterToInteractorHomeProtocol) {
+    init(view: PresenterToViewHomeProtocol,interactor:PresenterToInteractorHomeProtocol,router:PresenterToRouterHomeProtocol) {
         self.view = view
         self.interactor = interactor
+        self.router = router
         
     }
     
@@ -75,6 +77,7 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         print(text)
     }
     
+    
     func changeOfferArrayDesign() {
         restaurantArrayDesignState.toggle()
         let text =  TextTheme.view.rawValue
@@ -82,6 +85,12 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         view?.setChangeArrayButtonType(image: image, text: text)
         view?.restaurantCollectionViewReload()
     }
+    
+    func didTappedAllKitchensButton() {
+        router.toAllKitchens()
+    }
+    
+
     
     func cellItemForKitchen(at indexPath: IndexPath) -> Kitchen {
         let kitchen = kitchenList[indexPath.item]

@@ -14,8 +14,9 @@ public class HomeRouter : HomeModuleProtocol {
     public func createHomeViewController() -> UIViewController {
         let view = HomeViewController()
         let interactor = HomeInteractor()
-        
-        let presenter : ViewToPresenterHomeProtocol & InteractorToPresenterHomeProtocol = HomePresenter(view: view,interactor: interactor)
+        let router = HomeRouter()
+        let presenter : ViewToPresenterHomeProtocol
+        & InteractorToPresenterHomeProtocol = HomePresenter(view: view,interactor: interactor,router: router)
         
         view.presenter = presenter
         interactor.presenter = presenter
@@ -24,6 +25,10 @@ public class HomeRouter : HomeModuleProtocol {
 }
 
 extension HomeRouter : PresenterToRouterHomeProtocol {
+    func toAllKitchens() {
+        print("toAllKitchens router")
+    }
+    
     
 }
 

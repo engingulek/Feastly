@@ -10,12 +10,13 @@ import SnapKit
 import CommonKit
 class HomeViewController: UIViewController {
     
-    lazy var presenter : ViewToPresenterHomeProtocol = HomePresenter(view: self,interactor: HomeInteractor())
+    lazy var presenter : ViewToPresenterHomeProtocol = HomePresenter(view: self,interactor: HomeInteractor(),router: HomeRouter())
     private lazy var kitchenColectionView = UICollectionView.primaryCollectionView(tag: 0,scroolDirection: .horizontal)
     private lazy var restaurantColectionView = UICollectionView.primaryCollectionView(tag: 1,scroolDirection: .vertical)
     private lazy var kitchenTitleLabel = UILabel.titleUILabel()
     private lazy var offerTitleLabel = UILabel.titleUILabel()
     private lazy var searchTextField = UISearchTextField()
+    private lazy var allKitchensButton = UIButton.textButton(text: TextTheme.allKitchens.rawValue)
     private lazy var changeArrayTypeButton : UIButton = {
         let button = UIButton()
         
@@ -32,11 +33,16 @@ class HomeViewController: UIViewController {
         self.presenter.changeOfferArrayDesign()
     }
     
+    private lazy var allKitchensButtonAction : UIAction  = UIAction {_ in
+        self.presenter.didTappedAllKitchensButton()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         kitchenColectionView.register(KitchenCVC.self, forCellWithReuseIdentifier: KitchenCVC.identifier)
         restaurantColectionView.register(BigRestaurantCVC.self, forCellWithReuseIdentifier: BigRestaurantCVC.identifier)
         restaurantColectionView.register(SmallRestaurantCVC.self, forCellWithReuseIdentifier: SmallRestaurantCVC.identifier)
+        allKitchensButton.addAction(allKitchensButtonAction, for: .touchUpInside)
         presenter.viewDidLoad()
         configureUI()
         searchTextField.addTarget(self,
@@ -60,9 +66,13 @@ class HomeViewController: UIViewController {
         kitchenTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(searchTextField.snp.bottom).offset(10)
             make.leading.equalTo(view).offset(10)
-            make.trailing.equalTo(view)
         }
         
+        view.addSubview(allKitchensButton)
+        allKitchensButton.snp.makeConstraints { make in
+            make.top.equalTo(searchTextField.snp.bottom).offset(10)
+            make.trailing.equalTo(view).offset(-10)
+        }
         
         view.addSubview(kitchenColectionView)
         kitchenColectionView.snp.makeConstraints { make in

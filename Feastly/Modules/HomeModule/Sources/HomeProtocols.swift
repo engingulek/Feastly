@@ -15,6 +15,7 @@ protocol ViewToPresenterHomeProtocol{
     func viewDidLoad()
     func searchAction(text:String?)
     func changeOfferArrayDesign()
+    func didTappedAllKitchensButton()
     
     func numberOfItemsIn(tag:Int) -> Int
     func cellForItem(at indexPath:IndexPath,tag:Int) -> (state:Bool,
@@ -50,5 +51,5 @@ protocol InteractorToPresenterHomeProtocol{
 }
 
 protocol PresenterToRouterHomeProtocol {
-    
+    func toAllKitchens()
 }
