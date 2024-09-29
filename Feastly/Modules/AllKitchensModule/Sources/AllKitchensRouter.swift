@@ -15,6 +15,21 @@ public class AllKitchensRouter : AllKitchensModuleProtocol {
     
     public func createAllKitchensViewController() -> UIViewController {
         let view = AllKitchensViewController()
+        let interactor = AllKitchensInteractor()
+        let router = AllKitchensRouter()
+        let presenter : ViewToPresenterAllKitchensProtocol
+        &
+        InteractorToPresenterAllKitchensProtocol = AllKitchensPresenter(view: view, interactor: interactor, router: router)
+        interactor.presenter = presenter
+        view.presenter = presenter
         return view
     }
+}
+
+extension AllKitchensRouter : PresenterToRouterAllKitchensProtocol {
+    func toRestaurantList(view: PresenterToViewAllKitchensProtocol?) {
+        
+    }
+    
+    
 }

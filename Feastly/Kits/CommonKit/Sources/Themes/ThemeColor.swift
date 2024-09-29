@@ -17,5 +17,10 @@ public enum ColorTheme : String {
     
     /// is orange (#FF6600)
     case secondaryLabelColor = "#FF6600"
+    
+    
+    case enabledOrange = "#FFBF78"
+ 
+    
 
 }

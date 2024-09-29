@@ -22,4 +22,8 @@ public enum TextTheme:String {
     case allKitchens = "All Kitchens"
     
     case homePageTitle = "Home Page"
+    
+    case listRestaurants = "List restaurants"
+    
+    case clear = "Clear"
 }
