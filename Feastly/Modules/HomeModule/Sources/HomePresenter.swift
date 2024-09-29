@@ -64,7 +64,7 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
                         offerText: TextTheme.restaurants.rawValue)
         
         view?.setChangeArrayButtonType(image: "lineweight", text: TextTheme.view.rawValue)
-
+        view?.changeTitle(title: TextTheme.homePageTitle.rawValue)
         
        
         Task{
@@ -87,7 +87,7 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
     }
     
     func didTappedAllKitchensButton() {
-        router.toAllKitchens()
+        router.toAllKitchens(view: view)
     }
     
 

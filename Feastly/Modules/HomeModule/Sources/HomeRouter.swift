@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 import HomeModuleProtocol
-
+import AllKitchensModuleProtocol
+import DependencyKit
 public class HomeRouter : HomeModuleProtocol {
     public init() { }
     public func createHomeViewController() -> UIViewController {
@@ -25,11 +26,13 @@ public class HomeRouter : HomeModuleProtocol {
 }
 
 extension HomeRouter : PresenterToRouterHomeProtocol {
-    func toAllKitchens() {
-        print("toAllKitchens router")
+    func toAllKitchens(view:PresenterToViewHomeProtocol?) {
+        @Dependency var allKitchesProtocol : AllKitchensModuleProtocol
+        let viewController = allKitchesProtocol.createAllKitchensViewController()
+        view?.pushViewControllerAble(viewController, animated: true)
+        print(viewController)
+        print("Test a")
     }
-    
-    
 }
 
 

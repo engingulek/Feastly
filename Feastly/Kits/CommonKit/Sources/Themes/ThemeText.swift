@@ -20,4 +20,6 @@ public enum TextTheme:String {
     case primaryErrorMessage = "Something went wrong"
     
     case allKitchens = "All Kitchens"
+    
+    case homePageTitle = "Home Page"
 }

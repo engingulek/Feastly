@@ -12,12 +12,14 @@ final class HomeModuleTests : XCTestCase {
     private var presenter: HomePresenter!
     private var view : MockHomeViewController!
     private var interactor : MockHomeInteractor!
+    private var router:HomeRouter!
     
     override  func setUp() {
         super.setUp()
         view = .init()
         interactor = .init()
-        presenter = .init(view: view,interactor: interactor)
+        router = .init()
+        presenter = .init(view: view,interactor: interactor, router: router)
         
     }
     
@@ -58,6 +60,14 @@ final class HomeModuleTests : XCTestCase {
         XCTAssertTrue(view.invokedrestaurantCollectionViewReload)
         XCTAssertEqual(view.invokedrestaurantCollectionViewReloadCount,1)
         XCTAssertEqual(view.invokedrestaurantCollectionViewPrepareCount,1)
+    }
+    
+    func test_viewDidLoad_changeTitle_ReturnHomePage(){
+        XCTAssertFalse(view.invokedsetChangeTitle)
+        XCTAssertEqual(view.invokedsetChangeTitleCount, 0)
+        presenter.viewDidLoad()
+        XCTAssertEqual(view.invokedsetChangeTitleCount, 1)
+        XCTAssertEqual(view.invokedsetChangeTitleData.map(\.title),["Home Page"])
     }
     
     func test_setTitles_viewDidLoad_ReturnKitchenAndOffer(){

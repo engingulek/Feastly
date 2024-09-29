@@ -8,7 +8,7 @@
 import Foundation
 import CommonKit
 
-typealias Kits = UIViewAble & AlertMessageAble
+typealias Kits = UIViewAble & AlertMessageAble & SegueAble & NavConUIAble
 
 protocol ViewToPresenterHomeProtocol{
     var view : PresenterToViewHomeProtocol? {get}
@@ -51,5 +51,5 @@ protocol InteractorToPresenterHomeProtocol{
 }
 
 protocol PresenterToRouterHomeProtocol {
-    func toAllKitchens()
+    func toAllKitchens(view:PresenterToViewHomeProtocol?)
 }

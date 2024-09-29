@@ -14,7 +14,9 @@ let project = Project(
             dependencies: [
                 .project(target: "DependencyKit", path: .relativeToRoot("Kits/DependencyKit")),
                 .project(target: "HomeModule", path: .relativeToRoot("Modules/HomeModule")),
-                .project(target: "HomeModuleProtocol", path: .relativeToRoot("Modules/HomeModule"))
+                .project(target: "HomeModuleProtocol", path: .relativeToRoot("Modules/HomeModule")),
+                .project(target: "AllKitchensModule", path: .relativeToRoot("Modules/AllKitchensModule")),
+                .project(target: "AllKitchensModuleProtocol", path: .relativeToRoot("Modules/AllKitchensModule"))
             ]
         ),
     ]

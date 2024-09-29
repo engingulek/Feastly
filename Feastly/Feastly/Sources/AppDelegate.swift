@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         dependencyRegister.registerDependecies()
         @Dependency var homeModuleProtocol : HomeModuleProtocol
         let view = homeModuleProtocol.createHomeViewController()
-        window?.rootViewController =  view
+        window?.rootViewController =  UINavigationController(rootViewController: view)
         window?.makeKeyAndVisible()
         return true
     }
