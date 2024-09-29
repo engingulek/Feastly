@@ -18,4 +18,12 @@ public enum TextTheme:String {
     case primaryErrorActionTitle = "Ok"
     /// is Something went wrong
     case primaryErrorMessage = "Something went wrong"
+    
+    case allKitchens = "All Kitchens"
+    
+    case homePageTitle = "Home Page"
+    
+    case listRestaurants = "List restaurants"
+    
+    case clear = "Clear"
 }

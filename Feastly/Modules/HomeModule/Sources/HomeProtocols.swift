@@ -8,13 +8,14 @@
 import Foundation
 import CommonKit
 
-typealias Kits = UIViewAble & AlertMessageAble
+typealias Kits = UIViewAble & AlertMessageAble & SegueAble & NavConUIAble
 
 protocol ViewToPresenterHomeProtocol{
     var view : PresenterToViewHomeProtocol? {get}
     func viewDidLoad()
     func searchAction(text:String?)
     func changeOfferArrayDesign()
+    func didTappedAllKitchensButton()
     
     func numberOfItemsIn(tag:Int) -> Int
     func cellForItem(at indexPath:IndexPath,tag:Int) -> (state:Bool,
@@ -50,5 +51,5 @@ protocol InteractorToPresenterHomeProtocol{
 }
 
 protocol PresenterToRouterHomeProtocol {
-    
+    func toAllKitchens(view:PresenterToViewHomeProtocol?)
 }

@@ -6,14 +6,12 @@
 //
 
 import Foundation
+import UIKit
 @testable import HomeModule
 
 
 class MockHomeViewController : PresenterToViewHomeProtocol {
-    
-    
-  
-    
+
 
     var invokedkitchenCollectionViewReload:Bool = false
     var invokedkitchenCollectionViewReloadCount:Int = 0
@@ -66,6 +64,18 @@ class MockHomeViewController : PresenterToViewHomeProtocol {
         invokedsetBackColorAbleData.append((color:color,()))
     }
     
+    
+    var invokedsetChangeTitle:Bool = false
+    var invokedsetChangeTitleCount:Int = 0
+    var invokedsetChangeTitleData = [(title:String,Void)]()
+    func changeTitle(title: String) {
+        invokedsetChangeTitle = true
+        invokedsetChangeTitleCount += 1
+        invokedsetChangeTitleData.append((title:title,()))
+    }
+    
+
+    
     var involedsetChangeArrayButtonType:Bool = false
     var involedsetChangeArrayButtonTypeCount:Int = 0
     var involedsetChangeArrayButtonTypeData =  [(image:String,text:String)]()
@@ -86,7 +96,8 @@ class MockHomeViewController : PresenterToViewHomeProtocol {
     
     
 
-    
+    func pushViewControllerAble(_ vc: UIViewController, animated: Bool) {}
+
     
     
     
