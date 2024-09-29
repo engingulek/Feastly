@@ -74,8 +74,10 @@ extension AllKitchensPresenter : ViewToPresenterAllKitchensProtocol {
                                                   backColor:String,
                                                   cellBorderColor:String,
                                                   cornerRadius:CGFloat) {
-        let kitchen = kitchenList[indexPath.row]
-        let stateKitchen = selectedkitchenList.contains(kitchen.id)
+        print(kitchenList)
+
+        let kitchen = kitchenList[indexPath.item]
+                let stateKitchen = selectedkitchenList.contains(kitchen.id)
         let cellBorderColor = stateKitchen ? ColorTheme.secondaryLabelColor.rawValue : ColorTheme.primaryBackColor.rawValue
         return (kitchen,
                 backColor:ColorTheme.secondaryBackColor.rawValue,cellBorderColor,

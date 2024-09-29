@@ -38,7 +38,17 @@ let allKitchensModule = Project(
                     product: .staticFramework,
                     bundleId: "com.ios.AllKitchensModuleProtocol",
                     sources: "ProtocolSource/**"
-                   )
+                   ),
+        .target(
+            name: "AllKitchensModuleTests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "io.ios.AllKitchensModuleTests",
+            infoPlist: .default,
+            sources: ["Tests/**"],
+            resources: [],
+            dependencies: [.target(name: "AllKitchensModule")]
+        )
     ]
 
 
