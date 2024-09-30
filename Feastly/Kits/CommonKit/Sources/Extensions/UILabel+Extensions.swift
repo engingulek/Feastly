@@ -33,25 +33,24 @@ extension UILabel {
         label.textAlignment = .center
         return label
     }
+
     
-    
-    
-    
-    public static func secondaryCellTitleUILabel() -> UILabel {
+    public static func secondaryCellTitleUILabel(alignment:NSTextAlignment = .center) -> UILabel {
         let label = UILabel()
         label.textColor = .black
         label.font = .systemFont(ofSize: 15)
         label.backgroundColor = UIColor(hex: ColorTheme.secondaryBackColor.rawValue)
-        label.textAlignment = .center
+        label.textAlignment = alignment
+        label.numberOfLines = .zero
         return label
     }
     
-    public static func cellTitleBoldUILabel() -> UILabel {
+    public static func cellTitleBoldUILabel(alignment:NSTextAlignment = .center) -> UILabel {
         let label = UILabel()
         label.textColor = .black
         label.font = .boldSystemFont(ofSize: 18)
         label.backgroundColor = UIColor(hex: ColorTheme.secondaryBackColor.rawValue)
-        label.textAlignment = .center
+        label.textAlignment = alignment
         return label
     }
 }
