@@ -7,6 +7,7 @@
 
 import Foundation
 import NetworkKit
+import CommonKit
 class HomeInteractor : PresenterToInteractorHomeProtocol {
     var presenter : InteractorToPresenterHomeProtocol?
     private let networkManager : NetworkManagerProtocol = NetworkManager()
