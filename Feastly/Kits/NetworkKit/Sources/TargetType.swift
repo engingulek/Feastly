@@ -18,6 +18,7 @@ protocol TargetType {
 
 enum AlamofireMethod: String {
     case GET
+    case POST
 }
 
 enum RequestType {

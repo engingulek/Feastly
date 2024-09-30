@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import HomeModuleProtocol
 import AllKitchensModuleProtocol
+import FilterRestaurnatListModuleProtocol
 import DependencyKit
 public class HomeRouter : HomeModuleProtocol {
     public init() { }
@@ -26,13 +27,19 @@ public class HomeRouter : HomeModuleProtocol {
 }
 
 extension HomeRouter : PresenterToRouterHomeProtocol {
+
     func toAllKitchens(view:PresenterToViewHomeProtocol?) {
         @Dependency var allKitchesProtocol : AllKitchensModuleProtocol
         let viewController = allKitchesProtocol.createAllKitchensViewController()
         view?.pushViewControllerAble(viewController, animated: true)
-        print(viewController)
-        print("Test a")
     }
+    
+    func toFilterRestaurantList(view: PresenterToViewHomeProtocol?,kitchenId:String) {
+        @Dependency var filterRestaurantListModuleProtocol : FilterRestaurnatListModuleProtocol
+        let viewController = filterRestaurantListModuleProtocol.createFilterRestaurantListController(selectedList: [kitchenId])
+        view?.pushViewControllerAble(viewController, animated: true)
+    }
+    
 }
 
 

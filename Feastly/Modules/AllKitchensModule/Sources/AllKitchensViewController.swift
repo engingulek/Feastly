@@ -13,7 +13,13 @@ class AllKitchensViewController: UIViewController {
     private lazy var kitchenColectionView = UICollectionView.primaryCollectionView(tag: 0,scroolDirection: .vertical)
     private lazy var listRestaurantButton = UIButton.primaryButton(text: TextTheme.listRestaurants.rawValue)
     private lazy var rightBarButton = UIBarButtonItem(title: TextTheme.clear.rawValue, style: .plain, target: self, action: #selector(rightBarButtonTapped))
+    
+    private lazy var listRestaurantButtonAction : UIAction = UIAction { _ in
+        self.presenter.didTappedListRestaurantButton()
+    }
+    
     override func viewDidLoad() {
+        listRestaurantButton.addAction(listRestaurantButtonAction, for: .touchUpInside)
         super.viewDidLoad()
         kitchenColectionView.register(KitchenCVC.self, forCellWithReuseIdentifier: KitchenCVC.identifier)
         presenter.viewDidLoad()

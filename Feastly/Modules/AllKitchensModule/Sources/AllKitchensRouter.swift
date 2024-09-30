@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 import AllKitchensModuleProtocol
-
+import FilterRestaurnatListModuleProtocol
+import DependencyKit
 public class AllKitchensRouter : AllKitchensModuleProtocol {
 
     public init() { }
@@ -27,7 +28,10 @@ public class AllKitchensRouter : AllKitchensModuleProtocol {
 }
 
 extension AllKitchensRouter : PresenterToRouterAllKitchensProtocol {
-    func toRestaurantList(view: PresenterToViewAllKitchensProtocol?) {
+    func toFilterProductList(view: PresenterToViewAllKitchensProtocol?,selectedKitchensId:[String]) {
+        @Dependency var filterRestaurantListModuleProtocol : FilterRestaurnatListModuleProtocol
+        let viewController = filterRestaurantListModuleProtocol.createFilterRestaurantListController(selectedList: selectedKitchensId)
+        view?.pushViewControllerAble(viewController, animated: true)
         
     }
     
