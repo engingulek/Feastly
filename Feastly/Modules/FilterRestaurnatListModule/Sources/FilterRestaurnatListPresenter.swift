@@ -45,7 +45,6 @@ final class FilterRestaurnatListPresenter {
 extension FilterRestaurnatListPresenter : ViewToPresenterFilterRestaurantListProtocol {
     func viewDidLoad() {
         view?.restaurantCollectionViewPrepare()
-        view?.restaurantCollectionViewReload()
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
         
         view?.changeTitle(title: TextTheme.filteredRestaurants.rawValue)

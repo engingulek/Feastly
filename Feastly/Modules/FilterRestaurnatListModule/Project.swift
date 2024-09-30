@@ -35,7 +35,17 @@ let filterRestaurnatListModule = Project(
                 product: .staticFramework,
                 bundleId: "com.ios.FilterRestaurnatListModuleProtocol",
                 sources: "ProtocolSource/**"
-               )
+               ),
+        .target(
+            name: "FilterRestaurnatListModuleTests",
+            destinations: .iOS,
+            product: .unitTests,
+            bundleId: "io.ios.FilterRestaurnatListModuleTests",
+            infoPlist: .default,
+            sources: ["Tests/**"],
+            resources: [],
+            dependencies: [.target(name: "FilterRestaurnatListModule")]
+        )
     
     
     
