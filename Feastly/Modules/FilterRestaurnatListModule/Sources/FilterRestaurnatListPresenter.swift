@@ -23,9 +23,9 @@ final class FilterRestaurnatListPresenter {
         
     }
     
-    private func fetchRestaurant() async {
+    private func fetchRestaurant(list:[String]) async {
         do{
-            try await interactor.fetchRestaurantFilter()
+            try await interactor.fetchRestaurantFilter(list: list)
         }catch{
             view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
                                       message: TextTheme.primaryErrorMessage.rawValue,
@@ -43,7 +43,7 @@ extension FilterRestaurnatListPresenter : ViewToPresenterFilterRestaurantListPro
         view?.restaurantCollectionViewPrepare()
         view?.restaurantCollectionViewReload()
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
-        view?.setTitles(filterRestaurantTitle: "\(TextTheme.filteredRestaurants.rawValue)(\(filterRestaurantLit.count))")
+        
         view?.changeTitle(title: TextTheme.filteredRestaurants.rawValue)
     }
     
@@ -77,7 +77,7 @@ extension FilterRestaurnatListPresenter : ViewToPresenterFilterRestaurantListPro
     func getSelectedList(list: [String]) {
         print("SelectedId:\(list)")
         Task {
-            await fetchRestaurant()
+            await fetchRestaurant(list: list)
         }
     }
 }
@@ -85,6 +85,7 @@ extension FilterRestaurnatListPresenter : ViewToPresenterFilterRestaurantListPro
 extension FilterRestaurnatListPresenter : InteractorToPresenterFilterRestaurantListProtocol {
     func sendRestaurantData(restaurants: [Restaurant]) {
         filterRestaurantLit = restaurants
+        view?.setTitles(filterRestaurantTitle: "\(TextTheme.filteredRestaurants.rawValue)(\(filterRestaurantLit.count))")
         view?.restaurantCollectionViewReload()
     }
     

@@ -53,7 +53,11 @@ extension FilterRestaurantListViewController : PresenterToViewFilterRestaurantLi
     }
     
     func setTitles(filterRestaurantTitle: String) {
-        filteredRestaurantTitle.text = filterRestaurantTitle
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {return}
+            filteredRestaurantTitle.text = filterRestaurantTitle
+        }
+        
     }
     
 }

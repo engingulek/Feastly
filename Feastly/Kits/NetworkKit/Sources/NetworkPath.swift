@@ -6,10 +6,11 @@
 //
 
 import Foundation
-
+import Alamofire
 public enum NetworkPath{
     case kitchen
     case restaurant
+    case filterByKitchen(Parameters)
 }
 
 
@@ -25,11 +26,15 @@ extension NetworkPath : TargetType {
             return Constants.kitchen.rawValue + Constants.getAll.rawValue
         case .restaurant:
             return Constants.restaurant.rawValue + Constants.getAll.rawValue
+        case .filterByKitchen:
+            return Constants.restaurant.rawValue + Constants.filterByKitchen.rawValue
         }
     }
     
     var method: AlamofireMethod {
         switch self {
+        case .filterByKitchen:
+            return .POST
         default:
             return .GET
             
@@ -38,6 +43,8 @@ extension NetworkPath : TargetType {
     
     var requestType: RequestType {
         switch self {
+        case .filterByKitchen(let parameters):
+            return .requestParameters(parameters: parameters, encoding: JSONEncoding.init())
         default:
             return .requestPlain
             

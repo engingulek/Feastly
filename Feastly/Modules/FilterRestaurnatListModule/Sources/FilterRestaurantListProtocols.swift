@@ -31,7 +31,7 @@ protocol PresenterToViewFilterRestaurantListProtocol:AnyObject,Kits{
 
 
 protocol PresenterToInteractorFilterRestaurantListProtocol{
-    func fetchRestaurantFilter() async throws
+    func fetchRestaurantFilter(list:[String]) async throws
 }
 
 protocol InteractorToPresenterFilterRestaurantListProtocol{
