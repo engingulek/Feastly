@@ -9,9 +9,13 @@ import UIKit
 import SnapKit
 import CommonKit
 class FilterRestaurantListViewController: UIViewController {
-    lazy var presenter : ViewToPresenterFilterRestaurantListProtocol = FilterRestaurnatListPresenter(view: self, interactor: FilterRestaurantListInteractor(), router: FilterRestaurnatListRouter())
+    lazy var presenter : ViewToPresenterFilterRestaurantListProtocol = FilterRestaurnatListPresenter(
+        view: self, 
+        interactor: FilterRestaurantListInteractor(),
+        router: FilterRestaurnatListRouter())
     private lazy var  filteredRestaurantColectionView = UICollectionView.primaryCollectionView(tag: 0,scroolDirection: .vertical)
     private lazy var filteredRestaurantTitle  =  UILabel.secondarytitleUILabel()
+    private lazy var activitiyIndicator = UIActivityIndicatorView.baseActivityIndicator()
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -21,6 +25,8 @@ class FilterRestaurantListViewController: UIViewController {
     }
     
     private func configureUI(){
+      
+       
         view.addSubview(filteredRestaurantTitle)
         filteredRestaurantTitle.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
@@ -34,11 +40,18 @@ class FilterRestaurantListViewController: UIViewController {
             make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
+        filteredRestaurantColectionView.addSubview(activitiyIndicator)
+        activitiyIndicator.snp.makeConstraints { make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+        }
     }
 }
 
 //MARK: PresenterToViewFilterRestaurantListProtocol
 extension FilterRestaurantListViewController : PresenterToViewFilterRestaurantListProtocol {
+   
+    
     func restaurantCollectionViewPrepare() {
         filteredRestaurantColectionView.delegate = self
         filteredRestaurantColectionView.dataSource = self
@@ -57,7 +70,20 @@ extension FilterRestaurantListViewController : PresenterToViewFilterRestaurantLi
             guard let self = self else {return}
             filteredRestaurantTitle.text = filterRestaurantTitle
         }
-        
+    }
+    
+    func startActivityIndicator() {
+        DispatchQueue.main.async { [weak self] in
+                   guard let self = self else { return }
+                   self.activitiyIndicator.stopAnimating()
+               }
+    }
+    
+    func stopActivityIndicator() {
+        DispatchQueue.main.async { [weak self] in
+                   guard let self = self else { return }
+                   self.activitiyIndicator.stopAnimating()
+               }
     }
     
 }

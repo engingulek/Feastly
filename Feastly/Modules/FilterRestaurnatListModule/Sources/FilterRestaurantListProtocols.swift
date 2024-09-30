@@ -27,6 +27,9 @@ protocol PresenterToViewFilterRestaurantListProtocol:AnyObject,Kits{
     func restaurantCollectionViewReload()
     
     func setTitles(filterRestaurantTitle:String)
+    
+    func startActivityIndicator()
+    func stopActivityIndicator()
 }
 
 

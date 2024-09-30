@@ -16,7 +16,9 @@ final class FilterRestaurnatListPresenter {
     private var filterRestaurantLit:[Restaurant] = []
     
     
-    init(view: PresenterToViewFilterRestaurantListProtocol?, interactor: PresenterToInteractorFilterRestaurantListProtocol, router: PresenterToRouterFilterRestaurantListProtocol) {
+    init(view: PresenterToViewFilterRestaurantListProtocol?, 
+         interactor: PresenterToInteractorFilterRestaurantListProtocol,
+         router: PresenterToRouterFilterRestaurantListProtocol) {
         self.view = view
         self.interactor = interactor
         self.router = router
@@ -24,6 +26,7 @@ final class FilterRestaurnatListPresenter {
     }
     
     private func fetchRestaurant(list:[String]) async {
+       
         do{
             try await interactor.fetchRestaurantFilter(list: list)
         }catch{
@@ -31,6 +34,7 @@ final class FilterRestaurnatListPresenter {
                                       message: TextTheme.primaryErrorMessage.rawValue,
                                       actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
         }
+        
     }
     
 }
@@ -75,10 +79,11 @@ extension FilterRestaurnatListPresenter : ViewToPresenterFilterRestaurantListPro
     }
     
     func getSelectedList(list: [String]) {
-        print("SelectedId:\(list)")
+        view?.startActivityIndicator()
         Task {
             await fetchRestaurant(list: list)
         }
+        view?.stopActivityIndicator()
     }
 }
 
