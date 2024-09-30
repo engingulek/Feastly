@@ -101,6 +101,10 @@ extension FilterRestaurantListViewController : UICollectionViewDelegate,UICollec
         cell.layer.cornerRadius = item.cornerRadius
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelectItem(at: indexPath)
+    }
 }
 
 

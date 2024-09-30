@@ -12,6 +12,8 @@ import AllKitchensModule
 import AllKitchensModuleProtocol
 import FilterRestaurnatListModule
 import FilterRestaurnatListModuleProtocol
+import RestaurantDetailModuleProtocol
+import RestaurantDetailModule
 import DependencyKit
 final class DependencyRegister {
     func registerDependecies(){
@@ -20,5 +22,6 @@ final class DependencyRegister {
         dependencyEngine.register(value: HomeRouter(), for: HomeModuleProtocol.self)
         dependencyEngine.register(value: AllKitchensRouter(), for: AllKitchensModuleProtocol.self)
         dependencyEngine.register(value: FilterRestaurnatListRouter(), for: FilterRestaurnatListModuleProtocol.self)
+        dependencyEngine.register(value: RestaurantDetailRouter(), for: RestaurantDetailModuleProtocol.self)
     }
 }

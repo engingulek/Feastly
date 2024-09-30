@@ -35,6 +35,8 @@ extension UILabel {
     }
     
     
+    
+    
     public static func secondaryCellTitleUILabel() -> UILabel {
         let label = UILabel()
         label.textColor = .black

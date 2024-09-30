@@ -15,8 +15,9 @@ protocol ViewToPresenterFilterRestaurantListProtocol {
     func viewDidLoad()
     func numberOfItemsIn() -> Int
     func cellForItem(at indexPath:IndexPath) -> (restaurant:RestaurantResponse,
-        backColor:String,
+                                                 backColor:String,
                                                  cornerRadius:CGFloat)
+    func didSelectItem(at indePath:IndexPath)
     func sizeForItemAt(width:CGFloat,height:CGFloat) -> CGSize
     
     func getSelectedList(list:[String])

@@ -73,6 +73,11 @@ extension FilterRestaurnatListPresenter : ViewToPresenterFilterRestaurantListPro
         
     }
     
+    func didSelectItem(at indePath: IndexPath) {
+        let id = filterRestaurantLit[indePath.item].id
+        router.toRestaurantDetail(view: view, id: id)
+    }
+    
     func sizeForItemAt(width: CGFloat, height: CGFloat) -> CGSize {
         return   CGSize(width: width - 10, height: height / 4)
     }
