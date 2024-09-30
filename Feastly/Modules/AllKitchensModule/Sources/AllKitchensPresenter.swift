@@ -74,7 +74,6 @@ extension AllKitchensPresenter : ViewToPresenterAllKitchensProtocol {
                                                   backColor:String,
                                                   cellBorderColor:String,
                                                   cornerRadius:CGFloat) {
-        print(kitchenList)
 
         let kitchen = kitchenList[indexPath.item]
                 let stateKitchen = selectedkitchenList.contains(kitchen.id)
@@ -114,6 +113,11 @@ extension AllKitchensPresenter : ViewToPresenterAllKitchensProtocol {
         selectedkitchenList.removeAll()
         view?.kitchenCollectionViewReload()
         view?.listKitchenIsEnables(isEnabled: false,backColor: ColorTheme.enabledOrange.rawValue)
+    }
+    
+    func didTappedListRestaurantButton() {
+        
+        router.toFilterProductList(view: view,selectedKitchensId: selectedkitchenList)
     }
     
     

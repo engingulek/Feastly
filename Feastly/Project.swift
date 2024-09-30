@@ -13,10 +13,15 @@ let project = Project(
             resources: ["Feastly/Resources/**"],
             dependencies: [
                 .project(target: "DependencyKit", path: .relativeToRoot("Kits/DependencyKit")),
-                .project(target: "HomeModule", path: .relativeToRoot("Modules/HomeModule")),
+               
+                    .project(target: "HomeModule", path: .relativeToRoot("Modules/HomeModule")),
                 .project(target: "HomeModuleProtocol", path: .relativeToRoot("Modules/HomeModule")),
+                
                 .project(target: "AllKitchensModule", path: .relativeToRoot("Modules/AllKitchensModule")),
-                .project(target: "AllKitchensModuleProtocol", path: .relativeToRoot("Modules/AllKitchensModule"))
+                .project(target: "AllKitchensModuleProtocol", path: .relativeToRoot("Modules/AllKitchensModule")),
+                
+                .project(target: "FilterRestaurnatListModule", path: .relativeToRoot("Modules/FilterRestaurnatListModule")),
+               .project(target: "FilterRestaurnatListModuleProtocol", path: .relativeToRoot("Modules/FilterRestaurnatListModule"))
             ]
         ),
     ]

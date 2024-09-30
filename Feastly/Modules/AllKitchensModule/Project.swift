@@ -26,6 +26,7 @@ let allKitchensModule = Project(
                 dependencies: [
                     .project(target: "DependencyKit", path: .relativeToRoot("Kits/DependencyKit")),
                     .project(target:"AllKitchensModuleProtocol" , path: .relativeToRoot("Modules/AllKitchensModule")),
+                    .project(target: "FilterRestaurnatListModuleProtocol", path: .relativeToRoot("Modules/FilterRestaurnatListModule")),
                     .project(target: "CommonKit", path: .relativeToRoot("Kits/CommonKit")),
                     .package(product: "SnapKit"),
                     .project(target: "NetworkKit", path: .relativeToRoot("Kits/NetworkKit")),

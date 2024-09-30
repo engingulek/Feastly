@@ -21,6 +21,7 @@ protocol ViewToPresenterAllKitchensProtocol {
                                                  cornerRadius:CGFloat)
     func didSelectItem(at indexPath:IndexPath)
     func sizeForItemAt(width:CGFloat,height:CGFloat) -> CGSize
+    func didTappedListRestaurantButton()
     
 }
 
@@ -43,5 +44,6 @@ protocol InteractorToPresenterAllKitchensProtocol{
 }
 
 protocol PresenterToRouterAllKitchensProtocol{
-    func toRestaurantList(view:PresenterToViewAllKitchensProtocol?)
+    func toFilterProductList(view:PresenterToViewAllKitchensProtocol?,
+                             selectedKitchensId:[String])
 }

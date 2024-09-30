@@ -30,8 +30,6 @@ extension HomeRouter : PresenterToRouterHomeProtocol {
         @Dependency var allKitchesProtocol : AllKitchensModuleProtocol
         let viewController = allKitchesProtocol.createAllKitchensViewController()
         view?.pushViewControllerAble(viewController, animated: true)
-        print(viewController)
-        print("Test a")
     }
 }
 
