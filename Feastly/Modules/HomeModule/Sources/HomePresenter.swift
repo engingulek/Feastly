@@ -168,6 +168,18 @@ extension HomePresenter {
            return CGSize(width: 0, height: 0)
         }
     }
+    
+    func didSelecetItem(at indexPath: IndexPath, tag: Int) {
+        switch tag {
+        case 0:
+            let kitchenId = kitchenList[indexPath.item].id
+            router.toFilterRestaurantList(view: view, kitchenId: kitchenId)
+        default:
+            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                      message: TextTheme.primaryErrorMessage.rawValue,
+                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+        }
+    }
 }
 
 

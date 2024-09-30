@@ -184,6 +184,10 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
             return UICollectionViewCell()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didSelecetItem(at: indexPath, tag: 0)
+    }
 }
 
 

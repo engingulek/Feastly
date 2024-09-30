@@ -21,10 +21,12 @@ protocol ViewToPresenterHomeProtocol{
     func cellForItem(at indexPath:IndexPath,tag:Int) -> (state:Bool,
                                                          backColor:String,
                                                          cornerRadius:CGFloat)
+    func didSelecetItem(at indexPath:IndexPath,tag:Int)
     func sizeForItemAt(tag:Int,width:CGFloat,height:CGFloat) -> CGSize
     
     func cellItemForKitchen(at indexPath:IndexPath) -> Kitchen
     func cellItemForRestaurant(at indexPath:IndexPath) -> RestaurantResponse
+    
 }
 
 protocol PresenterToViewHomeProtocol:AnyObject,Kits{
@@ -52,4 +54,5 @@ protocol InteractorToPresenterHomeProtocol{
 
 protocol PresenterToRouterHomeProtocol {
     func toAllKitchens(view:PresenterToViewHomeProtocol?)
+    func toFilterRestaurantList(view:PresenterToViewHomeProtocol?,kitchenId:String)
 }

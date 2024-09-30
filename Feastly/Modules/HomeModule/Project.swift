@@ -32,7 +32,8 @@ let homeModule = Project (
                     .package(product: "SnapKit"),
                     .project(target: "NetworkKit", path: .relativeToRoot("Kits/NetworkKit")),
                     .package(product:"Kingfisher"),
-                    .project(target:"AllKitchensModuleProtocol" , path: .relativeToRoot("Modules/AllKitchensModule"))
+                    .project(target:"AllKitchensModuleProtocol" , path: .relativeToRoot("Modules/AllKitchensModule")),
+                    .project(target: "FilterRestaurnatListModuleProtocol", path: .relativeToRoot("Modules/FilterRestaurnatListModule"))
                 ]
                 
                ),
