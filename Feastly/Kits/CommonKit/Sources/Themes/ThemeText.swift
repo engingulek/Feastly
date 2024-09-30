@@ -26,4 +26,6 @@ public enum TextTheme:String {
     case listRestaurants = "List restaurants"
     
     case clear = "Clear"
+    
+    case filteredRestaurants = "Filtered Testaurants"
 }

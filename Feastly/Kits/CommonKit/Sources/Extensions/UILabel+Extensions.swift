@@ -16,6 +16,14 @@ extension UILabel {
         return label
     }
     
+    public static func secondarytitleUILabel() -> UILabel {
+        let label = UILabel()
+        label.textColor = .black
+        label.font = .boldSystemFont(ofSize: 20)
+        label.backgroundColor = UIColor(hex: ColorTheme.primaryBackColor.rawValue)
+        return label
+    }
+    
     
     public static func cellTitleUILabel() -> UILabel {
         let label = UILabel()

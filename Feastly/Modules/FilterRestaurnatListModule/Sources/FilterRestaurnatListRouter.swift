@@ -13,6 +13,25 @@ public class FilterRestaurnatListRouter : FilterRestaurnatListModuleProtocol {
     public init() { }
     public func createFilterRestaurantListController(selectedList:[String]) -> UIViewController {
         let view = FilterRestaurantListViewController()
+        let interactor = FilterRestaurantListInteractor()
+        let router = FilterRestaurnatListRouter()
+        let presenter : ViewToPresenterFilterRestaurantListProtocol
+        &
+        InteractorToPresenterFilterRestaurantListProtocol
+        = FilterRestaurnatListPresenter(view: view, interactor: interactor, router: router)
+        view.presenter = presenter
+        interactor.presenter = presenter
+        presenter.getSelectedList(list: selectedList)
         return view
     }
+}
+
+
+
+extension FilterRestaurnatListRouter : PresenterToRouterFilterRestaurantListProtocol {
+    func toRestaurantDetail(view: PresenterToViewFilterRestaurantListProtocol?, id: String) {
+        
+    }
+    
+    
 }
