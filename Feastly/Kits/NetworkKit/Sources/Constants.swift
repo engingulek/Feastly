@@ -13,4 +13,5 @@ public enum Constants : String {
     case restaurant = "/restaurant"
     case getAll  = "/getAll"
     case filterByKitchen = "/filterByKitchen"
+    case detail = "/detail"
 }

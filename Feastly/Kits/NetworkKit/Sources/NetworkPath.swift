@@ -11,6 +11,7 @@ public enum NetworkPath{
     case kitchen
     case restaurant
     case filterByKitchen(Parameters)
+    case restaurantDetail(String)
 }
 
 
@@ -28,6 +29,8 @@ extension NetworkPath : TargetType {
             return Constants.restaurant.rawValue + Constants.getAll.rawValue
         case .filterByKitchen:
             return Constants.restaurant.rawValue + Constants.filterByKitchen.rawValue
+        case .restaurantDetail(let id):
+            return Constants.restaurant.rawValue + Constants.detail.rawValue + "?id=\(id)"
         }
     }
     

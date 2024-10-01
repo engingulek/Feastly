@@ -17,17 +17,13 @@ class RestaurantMenuCVC: UICollectionViewCell {
         return imageView
     }()
     private lazy var menuNameLabel = UILabel.cellTitleBoldUILabel(alignment: .left)
-    private lazy var menuInfoLabel = UILabel.secondaryCellTitleUILabel(alignment: .left)
+    private lazy var menuInfoLabel = UILabel.secondaryCellTitleUILabel(alignment: .left,numberOfLines: 3)
     private lazy var priceMenuLabel = UILabel.cellTitleBoldUILabel(alignment: .left)
     private lazy var addCartButton = UIButton.primaryButton(text: "+")
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
-        menuNameLabel.text = "Menu Name"
-        menuInfoLabel.text = "Sdcn slaasmdsamm kdkaı okoakeomo okakenlakp omamen a*kkale-nınoonfaeknnaırnnda"
-        priceMenuLabel.text = "130tl"
-        let url = URL(string: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTSrUZxUu_PkBzk38fScQppdPhSxjdCpwpHg&s")
-        menuimage.kf.setImage(with: url)
+       
     }
     
     
@@ -70,6 +66,14 @@ class RestaurantMenuCVC: UICollectionViewCell {
             make.height.equalTo(30)
             make.width.equalTo(30)
         }
+    }
+    
+    func configureData(menu:Menu){
+        menuNameLabel.text = menu.name
+        menuInfoLabel.text = menu.description
+        priceMenuLabel.text = "\(menu.price)"
+        let url = URL(string: menu.imageURL)
+        menuimage.kf.setImage(with: url)
     }
     
     required init?(coder: NSCoder) {

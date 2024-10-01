@@ -35,7 +35,7 @@ protocol PresenterToInteractorRestaurantDetailProtocol{
 }
 
 protocol InteracorToPresenterRestaurantDetailProtocol {
-    func sendRestaurantDetail(restaurantDetail:RestaurantDetail?)
+    func sendRestaurantDetail(restaurantDetail:RestaurantDetail)
     
 }
 

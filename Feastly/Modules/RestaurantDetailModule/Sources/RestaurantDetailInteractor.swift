@@ -11,7 +11,14 @@ class RestaurantDetailInteractor : PresenterToInteractorRestaurantDetailProtocol
     var presenter : InteracorToPresenterRestaurantDetailProtocol?
     private let networkManager : NetworkManagerProtocol = NetworkManager()
     func fetchRestaurantDetail(id: String) async throws {
-        
+        do{
+            let response = try await networkManager.fetch(target: .restaurantDetail(id), responseClass: DataResult<RestaurantDetail>.self)
+            
+            presenter?.sendRestaurantDetail(restaurantDetail: response.data)
+        }catch{
+            print("interactor \(error.localizedDescription)")
+            throw error
+        }
     }
     
     

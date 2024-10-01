@@ -9,6 +9,7 @@ import UIKit
 import SnapKit
 import Kingfisher
 import CommonKit
+import CoreLocation
 class RestaurantInfoUIView: UIView {
     private lazy var restaurantImage : UIImageView = {
         let imageView = UIImageView()
@@ -36,23 +37,25 @@ class RestaurantInfoUIView: UIView {
         configureUI()
         backgroundColor = .white
         layer.cornerRadius = 10
-        let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/feastly-f1988.appspot.com/o/images%2Fresturant0.jpg?alt=media&token=15864d2b-2062-4b7e-be85-5dce7e771116")
-        restaurantImage.kf.setImage(with: url)
-        restaurantName.text = "Bursa Kebap"
-        subInfo.text = "1.5 km * Kebap"
+       
         serviceLabel.text = "Service:"
         flavorLabel.text = "Flavor:"
-        servicePoint.text = "5"
-        flavorPoint.text = "4"
         minWageTitleLabel.text = "Min Wage"
-        minWageLabel.text = "140TL"
-        workingHoursTitleLabel.text = "Working Hours"
-        workingHoursLabel.text = "10:00-01:00"
-        
     }
     
     func configureData(detail:RestaurantDetail){
         
+        let url = URL(string: detail.imageURL)
+        restaurantImage.kf.setImage(with: url)
+        restaurantName.text = detail.name
+        servicePoint.text = "\(detail.service)"
+        flavorPoint.text = "\(detail.flavor)"
+        let restaurantLocation = CLLocation(latitude: detail.latitude, longitude: detail.longitude)
+        let kitches = detail.kitchens.map { $0.name }.joined(separator:", ")
+        let userLocation = CLLocation(latitude: 41.09732, longitude: 29.03126)
+        let km = restaurantLocation.distance(from: userLocation) / 1000
+        subInfo.text = "\(String(format: "%.2f", km)) * \(kitches)"
+        minWageLabel.text = "\(detail.minWage)TL"
     }
     
     private func configureUI(){

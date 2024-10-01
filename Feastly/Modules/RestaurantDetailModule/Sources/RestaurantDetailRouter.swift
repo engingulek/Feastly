@@ -13,6 +13,12 @@ public class RestaurantDetailRouter : RestaurantDetailModuleProtocol {
     public init() { }
     public func createRestaurantDetailViewController(restaurantId:String) -> UIViewController {
         let view = RestaurantDetailViewController()
+        let intractor = RestaurantDetailInteractor()
+        let router = RestaurantDetailRouter()
+        let presenter : ViewToPresenterRestaurantDetailProtocol & InteracorToPresenterRestaurantDetailProtocol = RestaurantDetailPresenter(view: view, interactor: intractor, router: router)
+        view.presenter = presenter
+        intractor.presenter = presenter
+        presenter.getRestaurantId(id: restaurantId)
         return view
     }
 }

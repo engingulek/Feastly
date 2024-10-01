@@ -12,7 +12,8 @@ final class RestaurantDetailPresenter {
     weak var view : PresenterToViewRestaurantDetailProtocol?
     private var interactor: PresenterToInteractorRestaurantDetailProtocol
     private var  router : PresenterToRouterRestaurantDetailProtocol
-    private var restaurantDetail:RestaurantDetail? = nil
+    private var menus : [Menu] = []
+
     
     init(view: PresenterToViewRestaurantDetailProtocol , 
          interactor: PresenterToInteractorRestaurantDetailProtocol,
@@ -38,26 +39,23 @@ extension RestaurantDetailPresenter : ViewToPresenterRestaurantDetailProtocol {
     
     func viewDidLoad() {
         view?.restaurantMenusCollectionViewPrepare()
-        view?.restaurantMenusCollectionViewRealoadData()
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
         view?.setTitle(menuText: TextTheme.menus.rawValue)
-       // view?.setDetailView(detail: restaurantDetail!)
     }
     
     func getRestaurantId(id: String) {
         Task{
             await fetchRestaurantDetail(id:id)
         }
-        view?.restaurantMenusCollectionViewRealoadData()
     }
     
     func numberOfItemsInSection() -> Int {
-        return 10
+        return menus.count
     }
     
     func cellForItem(at indexPath: IndexPath) -> (menu: Menu, backColor: String, cornerRadius: CGFloat) {
-       
-        let menu = restaurantDetail!.menus[indexPath.item]
+      
+        let menu = menus[indexPath.item]
         return (menu:menu,backColor:ColorTheme.secondaryBackColor.rawValue,cornerRadius:10)
     }
     
@@ -67,17 +65,10 @@ extension RestaurantDetailPresenter : ViewToPresenterRestaurantDetailProtocol {
 }
 
 extension RestaurantDetailPresenter : InteracorToPresenterRestaurantDetailProtocol {
-    func sendRestaurantDetail(restaurantDetail: RestaurantDetail?) {
-        guard let detail = restaurantDetail else {
-            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
-                                      message: TextTheme.primaryErrorMessage.rawValue,
-                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
-            return
-        }
-        self.restaurantDetail = detail
+    func sendRestaurantDetail(restaurantDetail: RestaurantDetail) {
+      
+        menus = restaurantDetail.menus
+        view?.setDetailView(detail: restaurantDetail)
+        view?.restaurantMenusCollectionViewRealoadData()
     }
-    
-    
-    
-    
 }

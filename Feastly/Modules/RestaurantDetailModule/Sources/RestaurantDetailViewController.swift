@@ -76,7 +76,12 @@ extension RestaurantDetailViewController  : PresenterToViewRestaurantDetailProto
     }
     
     func setDetailView(detail: RestaurantDetail) {
-        restaurantInfoView.configureData(detail: detail)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {return}
+            restaurantInfoView.configureData(detail: detail)
+            
+        }
+        
     }
     
     
@@ -93,9 +98,10 @@ extension RestaurantDetailViewController : UICollectionViewDelegate,UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RestaurantMenuCVC.identifier, for: indexPath) as?
                 RestaurantMenuCVC else {return UICollectionViewCell()}
-        //let item = presenter.cellForItem(at: indexPath)
-        cell.backgroundColor = .white //UIColor(hex: item.backColor)
-        cell.layer.cornerRadius = 10 //item.cornerRadius
+        let item = presenter.cellForItem(at: indexPath)
+        cell.backgroundColor = UIColor(hex: item.backColor)
+        cell.layer.cornerRadius = item.cornerRadius
+        cell.configureData(menu: item.menu)
         return cell
     }
     

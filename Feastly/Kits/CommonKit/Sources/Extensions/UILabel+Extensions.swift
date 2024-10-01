@@ -35,13 +35,13 @@ extension UILabel {
     }
 
     
-    public static func secondaryCellTitleUILabel(alignment:NSTextAlignment = .center) -> UILabel {
+    public static func secondaryCellTitleUILabel(alignment:NSTextAlignment = .center,numberOfLines:Int = .zero) -> UILabel {
         let label = UILabel()
         label.textColor = .black
         label.font = .systemFont(ofSize: 15)
         label.backgroundColor = UIColor(hex: ColorTheme.secondaryBackColor.rawValue)
         label.textAlignment = alignment
-        label.numberOfLines = .zero
+        label.numberOfLines = numberOfLines
         return label
     }
     
