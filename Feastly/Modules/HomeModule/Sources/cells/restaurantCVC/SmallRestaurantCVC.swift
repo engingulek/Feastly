@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Kingfisher
+
 import SnapKit
 import CommonKit
 class SmallRestaurantCVC: UICollectionViewCell {
@@ -60,8 +60,7 @@ class SmallRestaurantCVC: UICollectionViewCell {
     
     
     func configureData(data:RestaurantResponse){
-        let url =  URL(string: data.imageURL)
-        restaurantImageView.kf.setImage(with: url)
+        restaurantImageView.setImage(with:  data.imageURL, placeholder: UIImage(systemName: "fork.knife"))
         restaurantName.text = data.name
         kitchensInfo.text = data.kitches
         restaurantInfo.text = data.restaurantInfo

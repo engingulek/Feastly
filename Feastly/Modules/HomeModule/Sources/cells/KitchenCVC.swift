@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
-import Kingfisher
+
 import CommonKit
 class KitchenCVC: UICollectionViewCell {
     static let identifier : String = "kitchenCVC"
@@ -48,8 +48,7 @@ class KitchenCVC: UICollectionViewCell {
     
     
      func configureData(kitchen:Kitchen){
-        let url = URL(string: kitchen.imageUrl)
-        kitchenImageView.kf.setImage(with: url)
+        kitchenImageView.setImage(with:kitchen.imageUrl, placeholder: UIImage(systemName: "fork.knife"))
         kitchenLabel.text = kitchen.name
     }
     

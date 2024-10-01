@@ -9,6 +9,9 @@ import Foundation
 import ProjectDescription
 let commonKit = Project (
     name: "CommonKit",
+    packages: [
+        .package(url:"https://github.com/onevcat/Kingfisher.git",from:"8.0.2")
+    ],
     targets: [
         .target(name: "CommonKit",
                 destinations: .iOS,
@@ -16,7 +19,9 @@ let commonKit = Project (
                 bundleId: "com.ios.CommonKit",
                 infoPlist: .default,
                 sources: "Sources/**",
-                dependencies: []
+                dependencies: [
+                    .package(product:"Kingfisher"),
+                ]
                ),
     ]
 )

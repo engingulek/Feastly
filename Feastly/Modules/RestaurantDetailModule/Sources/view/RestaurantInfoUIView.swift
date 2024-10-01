@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-import Kingfisher
+
 import CommonKit
 import CoreLocation
 class RestaurantInfoUIView: UIView {
@@ -46,7 +46,7 @@ class RestaurantInfoUIView: UIView {
     func configureData(detail:RestaurantDetail){
         
         let url = URL(string: detail.imageURL)
-        restaurantImage.kf.setImage(with: url)
+        restaurantImage.setImage(with:detail.imageURL, placeholder: UIImage(systemName: "fork.knife"))
         restaurantName.text = detail.name
         servicePoint.text = "\(detail.service)"
         flavorPoint.text = "\(detail.flavor)"

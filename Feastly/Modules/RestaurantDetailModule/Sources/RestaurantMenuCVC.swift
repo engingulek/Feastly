@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Kingfisher
+
 import SnapKit
 class RestaurantMenuCVC: UICollectionViewCell {
     static let identifier:String = "restaurantMenuCVC"
@@ -72,8 +72,8 @@ class RestaurantMenuCVC: UICollectionViewCell {
         menuNameLabel.text = menu.name
         menuInfoLabel.text = menu.description
         priceMenuLabel.text = "\(menu.price)"
-        let url = URL(string: menu.imageURL)
-        menuimage.kf.setImage(with: url)
+        
+        menuimage.setImage(with:menu.imageURL, placeholder: UIImage(systemName: "fork.knife"))
     }
     
     required init?(coder: NSCoder) {

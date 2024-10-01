@@ -13,7 +13,6 @@ let allKitchensModule = Project(
     name: "AllKitchensModule",
     packages: [
         .package(url: "https://github.com/SnapKit/SnapKit", from: "5.7.1"),
-        .package(url:"https://github.com/onevcat/Kingfisher.git",from:"8.0.2")
     ],
     
     targets: [
@@ -30,7 +29,6 @@ let allKitchensModule = Project(
                     .project(target: "CommonKit", path: .relativeToRoot("Kits/CommonKit")),
                     .package(product: "SnapKit"),
                     .project(target: "NetworkKit", path: .relativeToRoot("Kits/NetworkKit")),
-                    .package(product:"Kingfisher")
                 ]
                 ),
         
