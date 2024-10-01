@@ -72,10 +72,7 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
             await fetchRestaurant()
         }
     }
-    
-    func searchAction(text: String?) {
-        print(text)
-    }
+
     
     
     func changeOfferArrayDesign() {
@@ -197,7 +194,3 @@ extension HomePresenter:InteractorToPresenterHomeProtocol {
     }
     
 }
-
-
-
-

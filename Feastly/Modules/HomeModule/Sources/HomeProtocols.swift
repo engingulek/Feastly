@@ -13,7 +13,7 @@ typealias Kits = UIViewAble & AlertMessageAble & SegueAble & NavConUIAble
 protocol ViewToPresenterHomeProtocol{
     var view : PresenterToViewHomeProtocol? {get}
     func viewDidLoad()
-    func searchAction(text:String?)
+    
     func changeOfferArrayDesign()
     func didTappedAllKitchensButton()
     
