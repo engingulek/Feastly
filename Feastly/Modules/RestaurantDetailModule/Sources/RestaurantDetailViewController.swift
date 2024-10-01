@@ -56,6 +56,7 @@ class RestaurantDetailViewController: UIViewController {
 }
 
 extension RestaurantDetailViewController  : PresenterToViewRestaurantDetailProtocol {
+  
     
     
     func restaurantMenusCollectionViewPrepare() {
@@ -81,12 +82,12 @@ extension RestaurantDetailViewController  : PresenterToViewRestaurantDetailProto
             restaurantInfoView.configureData(detail: detail)
             
         }
-        
     }
     
     
-    
-    
+    func viewLabelsTest(service: String, flavor: String, minWage: String) {
+        restaurantInfoView.setLabelText(service, flavor, minWage)
+    }
 }
 
 

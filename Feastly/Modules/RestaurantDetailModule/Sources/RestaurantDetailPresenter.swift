@@ -41,6 +41,10 @@ extension RestaurantDetailPresenter : ViewToPresenterRestaurantDetailProtocol {
         view?.restaurantMenusCollectionViewPrepare()
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
         view?.setTitle(menuText: TextTheme.menus.rawValue)
+        view?.changeTitle(title: TextTheme.restaurantDetail.rawValue)
+        view?.viewLabelsTest(service: TextTheme.service.rawValue,
+                             flavor: TextTheme.flavor.rawValue,
+                             minWage: TextTheme.minWage.rawValue)
     }
     
     func getRestaurantId(id: String) {

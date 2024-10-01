@@ -28,6 +28,7 @@ protocol PresenterToViewRestaurantDetailProtocol: AnyObject,Kits{
     func restaurantMenusCollectionViewRealoadData()
     func setTitle(menuText:String)
     func setDetailView(detail:RestaurantDetail)
+    func viewLabelsTest(service:String,flavor:String,minWage:String)
 }
 
 protocol PresenterToInteractorRestaurantDetailProtocol{

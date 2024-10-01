@@ -30,4 +30,13 @@ public enum TextTheme:String {
     case filteredRestaurants = "Filtered Testaurants"
     
     case menus = "Menus"
+    
+    case service = "Service: "
+    
+    case flavor = "Flavor: "
+    
+    case minWage = "Min Wage"
+    
+    case restaurantDetail = "Restaurant Detail"
 }
+
