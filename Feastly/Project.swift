@@ -21,7 +21,12 @@ let project = Project(
                 .project(target: "AllKitchensModuleProtocol", path: .relativeToRoot("Modules/AllKitchensModule")),
                 
                 .project(target: "FilterRestaurnatListModule", path: .relativeToRoot("Modules/FilterRestaurnatListModule")),
-               .project(target: "FilterRestaurnatListModuleProtocol", path: .relativeToRoot("Modules/FilterRestaurnatListModule"))
+               .project(target: "FilterRestaurnatListModuleProtocol", path: .relativeToRoot("Modules/FilterRestaurnatListModule")),
+                
+                .project(target: "RestaurantDetailModule", path: .relativeToRoot("Modules/RestaurantDetailModule")),
+               .project(target: "RestaurantDetailModuleProtocol", path: .relativeToRoot("Modules/RestaurantDetailModule"))
+                
+                    
             ]
         ),
     ]

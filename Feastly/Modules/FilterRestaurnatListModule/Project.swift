@@ -23,6 +23,7 @@ let filterRestaurnatListModule = Project(
                 sources: "Sources/**",
                 dependencies: [
                    .project(target: "FilterRestaurnatListModuleProtocol", path: .relativeToRoot("Modules/FilterRestaurnatListModule")),
+                   .project(target: "RestaurantDetailModuleProtocol", path: .relativeToRoot("Modules/RestaurantDetailModule")),
                     .project(target: "CommonKit", path: .relativeToRoot("Kits/CommonKit")),
                     .package(product: "SnapKit"),
                     .project(target: "NetworkKit", path: .relativeToRoot("Kits/NetworkKit")),

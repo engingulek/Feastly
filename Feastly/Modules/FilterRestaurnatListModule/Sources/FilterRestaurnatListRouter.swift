@@ -8,7 +8,8 @@
 import Foundation
 import FilterRestaurnatListModuleProtocol
 import UIKit
-
+import DependencyKit
+import RestaurantDetailModuleProtocol
 public class FilterRestaurnatListRouter : FilterRestaurnatListModuleProtocol {
     public init() { }
     public func createFilterRestaurantListController(selectedList:[String]) -> UIViewController {
@@ -30,7 +31,9 @@ public class FilterRestaurnatListRouter : FilterRestaurnatListModuleProtocol {
 
 extension FilterRestaurnatListRouter : PresenterToRouterFilterRestaurantListProtocol {
     func toRestaurantDetail(view: PresenterToViewFilterRestaurantListProtocol?, id: String) {
-        
+        @Dependency var restaurantDetailModuleProtocol : RestaurantDetailModuleProtocol
+        let viewController = restaurantDetailModuleProtocol.createRestaurantDetailViewController(restaurantId: id)
+        view?.pushViewControllerAble(viewController, animated: true)
     }
     
     
