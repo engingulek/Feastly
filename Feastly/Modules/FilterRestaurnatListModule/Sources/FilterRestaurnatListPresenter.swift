@@ -16,7 +16,7 @@ final class FilterRestaurnatListPresenter {
     private var filterRestaurantLit:[Restaurant] = []
     
     
-    init(view: PresenterToViewFilterRestaurantListProtocol?, 
+    init(view: PresenterToViewFilterRestaurantListProtocol?,
          interactor: PresenterToInteractorFilterRestaurantListProtocol,
          router: PresenterToRouterFilterRestaurantListProtocol) {
         self.view = view
@@ -30,11 +30,17 @@ final class FilterRestaurnatListPresenter {
         do{
             try await interactor.fetchRestaurantFilter(list: list)
         }catch{
-            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
-                                      message: TextTheme.primaryErrorMessage.rawValue,
-                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
+                createAlertMessage()
+                view?.popViewControllerAble()
+            }
         }
-        
+    }
+    private func createAlertMessage(){
+        view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                  message: TextTheme.primaryErrorMessage.rawValue,
+                                  actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
     }
     
 }

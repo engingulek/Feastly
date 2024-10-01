@@ -26,10 +26,18 @@ final class RestaurantDetailPresenter {
         do{
             try await interactor.fetchRestaurantDetail(id: id)
         }catch{
-            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
-                                      message: TextTheme.primaryErrorMessage.rawValue,
-                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
+                createAlertMessage()
+            }
         }
+    }
+    
+  
+    private func createAlertMessage(){
+        view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                  message: TextTheme.primaryErrorMessage.rawValue,
+                                  actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
     }
 }
 

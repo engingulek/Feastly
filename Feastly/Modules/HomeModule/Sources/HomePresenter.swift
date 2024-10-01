@@ -28,9 +28,10 @@ final class HomePresenter {
         do{
             try await interactor.fetchKitches()
         }catch{
-            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
-                                      message: TextTheme.primaryErrorMessage.rawValue, 
-                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
+                createAlertMessage()
+            }
         }
     }
     
@@ -39,10 +40,18 @@ final class HomePresenter {
         do{
             try await interactor.fetchRestaurant()
         }catch{
-            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
-                                      message: TextTheme.primaryErrorMessage.rawValue,
-                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
+                createAlertMessage()
+            }
         }
+    }
+    
+    
+    private func createAlertMessage(){
+        view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                  message: TextTheme.primaryErrorMessage.rawValue,
+                                  actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
     }
     
 }
@@ -50,9 +59,9 @@ final class HomePresenter {
 
 //MARK: ViewToPresenterHomeProtocol
 extension HomePresenter : ViewToPresenterHomeProtocol {
-  
     
-
+    
+    
     func viewDidLoad() {
         
         view?.kitchenCollectionViewPrepare()
@@ -68,13 +77,13 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         view?.setChangeArrayButtonType(image: "lineweight", text: TextTheme.view.rawValue)
         view?.changeTitle(title: TextTheme.homePageTitle.rawValue)
         
-       
+        
         Task{
             await fetchKithen()
             await fetchRestaurant()
         }
     }
-
+    
     
     
     func changeOfferArrayDesign() {
@@ -89,7 +98,7 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
         router.toAllKitchens(view: view)
     }
     
-
+    
     
     func cellItemForKitchen(at indexPath: IndexPath) -> Kitchen {
         let kitchen = kitchenList[indexPath.item]
@@ -118,7 +127,7 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
     func insetForSectionAt() -> (top: CGFloat, left: CGFloat, right: CGFloat, bottom: CGFloat) {
         return (top: 0, left: 10, right: 0, bottom: 10)
     }
-
+    
 }
 
 //MARK: ViewToPresenterHomeProtocol + UICollectionViewDelegate,UICollectionViewDataSource
@@ -150,9 +159,9 @@ extension HomePresenter {
                     backColor:ColorTheme.secondaryBackColor.rawValue,
                     cornerRadius:10)
         default:
-              return (state:false,
-                            backColor:ColorTheme.primaryBackColor.rawValue,
-                            cornerRadius:0)
+            return (state:false,
+                    backColor:ColorTheme.primaryBackColor.rawValue,
+                    cornerRadius:0)
         }
     }
     
@@ -165,14 +174,14 @@ extension HomePresenter {
             
             return CGSize(width: cellWidth - 10, height: cellWidth * 1.2)
         case 1:
-          
+            
             
             return restaurantArrayDesignState ? 
             CGSize(width: width - 10, height: height / 8)
             :
             CGSize(width: width - 10, height: height / 4)
         default:
-           return CGSize(width: 0, height: 0)
+            return CGSize(width: 0, height: 0)
         }
     }
     
@@ -197,7 +206,7 @@ extension HomePresenter:InteractorToPresenterHomeProtocol {
         view?.kitchenCollectionViewReload()
     }
     
-
+    
     func sendRestaurantData(restaurant:[Restaurant]) {
         restaurantLit = restaurant
         view?.restaurantCollectionViewReload()

@@ -27,9 +27,11 @@ final class AllKitchensPresenter {
         do{
             try await interactor.fetchKitches()
         }catch{
-            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
-                                      message: TextTheme.primaryErrorMessage.rawValue,
-                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
+                createAlertMessage()
+                view?.popViewControllerAble()
+            }
         }
     }
     
@@ -46,14 +48,20 @@ final class AllKitchensPresenter {
         
     }
     
+    private func createAlertMessage(){
+        view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                  message: TextTheme.primaryErrorMessage.rawValue,
+                                  actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+    }
+    
     
 }
 
 
 //MARK: ViewToPresenterAllKitchensProtocol
 extension AllKitchensPresenter : ViewToPresenterAllKitchensProtocol {
- 
-
+    
+    
     func viewDidLoad() {
         view?.kitchenCollectionViewReload()
         view?.kitchenCollectionViewPrepare()
@@ -76,9 +84,9 @@ extension AllKitchensPresenter : ViewToPresenterAllKitchensProtocol {
                                                   cellBorderColor:String,
                                                   cornerRadius:CGFloat,
                                                   borderWidth:CGFloat) {
-
+        
         let kitchen = kitchenList[indexPath.item]
-                let stateKitchen = selectedkitchenList.contains(kitchen.id)
+        let stateKitchen = selectedkitchenList.contains(kitchen.id)
         let cellBorderColor = stateKitchen ? ColorTheme.secondaryLabelColor.rawValue : ColorTheme.primaryBackColor.rawValue
         return (kitchen,
                 backColor:ColorTheme.secondaryBackColor.rawValue,cellBorderColor,
@@ -89,14 +97,14 @@ extension AllKitchensPresenter : ViewToPresenterAllKitchensProtocol {
     func didSelectItem(at indexPath: IndexPath) {
         
         let kitchen = kitchenList[indexPath.item]
-      
+        
         if let index = selectedkitchenList.firstIndex(of: kitchen.id) {
             selectedkitchenList.remove(at: index)
-        
+            
         } else {
             selectedkitchenList.append(kitchen.id)
         }
-    
+        
         
         listRestaurantEnabledAction()
         clearButtonIsHiddenAction()
@@ -138,6 +146,4 @@ extension AllKitchensPresenter : InteractorToPresenterAllKitchensProtocol {
         view?.kitchenCollectionViewReload()
         view?.clearButtonHidden(isHidden: true)
     }
-    
-    
 }

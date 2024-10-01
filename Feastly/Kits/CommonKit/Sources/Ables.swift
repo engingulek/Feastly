@@ -24,11 +24,16 @@ extension UIViewAble where Self : UIViewController  {
 //MARK: - SegueAble
 public protocol SegueAble {
     func pushViewControllerAble (_ vc:UIViewController,animated:Bool)
+    func popViewControllerAble()
 }
 
 extension SegueAble  where Self : UIViewController{
     public func pushViewControllerAble (_ vc:UIViewController,animated:Bool) {
         navigationController?.pushViewController(vc, animated: animated)
+    }
+    
+    public func popViewControllerAble(){
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -67,6 +72,5 @@ extension AlertMessageAble  where Self : UIViewController {
         
         alert.addAction(UIAlertAction(title: actionTitle, style: .default))
         self.present(alert, animated: true)
-        
     }
 }

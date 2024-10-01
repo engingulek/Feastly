@@ -73,9 +73,9 @@ final class AllKitchesModuleTests : XCTestCase {
         presenter.viewDidLoad()
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.height
-     let item =   presenter.sizeForItemAt(
-                                width: width,
-                                height: height )
+        let item =   presenter.sizeForItemAt(
+            width: width,
+            height: height )
         let cellWidth = width / 4
         XCTAssertEqual(item.width,cellWidth - 10)
         XCTAssertEqual(item.height, cellWidth*1.2)
@@ -115,7 +115,7 @@ final class AllKitchesModuleTests : XCTestCase {
         self.presenter.sendKitchenData(kitchens: [
             .init(id: "TestId", name: "TestName", imageUrl: "TestImageUrl")])
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-           
+            
             self.presenter.didSelectItem(at: [0,0])
             let item = self.presenter.cellForItem(at: [0,0])
             XCTAssertEqual(item.cellBorderColor, "#FF6600")
@@ -138,7 +138,7 @@ final class AllKitchesModuleTests : XCTestCase {
         
         XCTAssertEqual(view.invokedListKitchenIsEnabledData.map(\.backColor),["#FFBF78"])
         XCTAssertEqual(view.invokedListKitchenIsEnabledData.map(\.isEnabled),[false])
-                       
+        
     }
     
     
@@ -161,7 +161,7 @@ final class AllKitchesModuleTests : XCTestCase {
         
         let expectation = XCTestExpectation(description: "Async task completed")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-           
+            
             self.presenter.didSelectItem(at: [0,0])
             XCTAssertTrue(self.view.invokedClearButtonHidden)
             XCTAssertEqual(self.view.invokedClearButtonHiddenData.map(\.isHidden),[false])
@@ -169,5 +169,35 @@ final class AllKitchesModuleTests : XCTestCase {
         }
         wait(for: [expectation], timeout: 5)
     }
+    
+    func test_fetchKitchens_error_shouldCreateAlertMessage(){
+        let expectation = XCTestExpectation(description: "Async task completed")
+        
+        XCTAssertFalse(view.involedCreateAlertMessage)
+        XCTAssertEqual(view.involedCreateAlertMessageCount,0)
+        
+        XCTAssertFalse(view.invokedpopViewControllerAble)
+        XCTAssertEqual(view.invokedpopViewControllerAbleCount,0)
+        
+        interactor.mockFetchKitchesReturnError = true
+        presenter.viewDidLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            XCTAssertEqual(self.view.involedCreateAlertMessageData.map(\.title),["Error"])
+            XCTAssertEqual(self.view.involedCreateAlertMessageData.map(\.message),["Something went wrong"])
+            XCTAssertEqual(self.view.involedCreateAlertMessageData.map(\.actionTitle),["Ok"])
+            
+            XCTAssertEqual(self.view.involedCreateAlertMessageCount,1)
+            
+            
+            XCTAssertTrue(self.view.invokedpopViewControllerAble)
+            XCTAssertEqual(self.view.invokedpopViewControllerAbleCount,1)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 5)
+    }
+    
+    
+    
     
 }
