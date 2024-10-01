@@ -9,7 +9,13 @@ import UIKit
 import SnapKit
 import CommonKit
 class RestaurantDetailViewController: UIViewController {
-    private lazy var restaurantInfoView:UIView = RestaurantInfoUIView(frame: .infinite)
+    
+    lazy var presenter : ViewToPresenterRestaurantDetailProtocol = RestaurantDetailPresenter(
+        view: self,
+        interactor: RestaurantDetailInteractor(),
+    router: RestaurantDetailRouter())
+    
+    private lazy var restaurantInfoView = RestaurantInfoUIView(frame: .infinite)
     private lazy var restaurantMenuCollectionView = UICollectionView.primaryCollectionView(tag: 0, scroolDirection: .vertical)
     private lazy var listTitleLabel:UILabel = UILabel.titleUILabel()
     private lazy var addCartButton = UIButton.primaryButton(text: "+")
@@ -17,11 +23,10 @@ class RestaurantDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        restaurantMenuCollectionView.delegate = self
-        restaurantMenuCollectionView.dataSource = self
+        presenter.viewDidLoad()
         restaurantMenuCollectionView.register(RestaurantMenuCVC.self, forCellWithReuseIdentifier: RestaurantMenuCVC.identifier)
         view.backgroundColor = UIColor(hex: ColorTheme.primaryBackColor.rawValue)
-        listTitleLabel.text = "Menus"
+        
         configureUI()
     }
     
@@ -50,17 +55,47 @@ class RestaurantDetailViewController: UIViewController {
     }
 }
 
+extension RestaurantDetailViewController  : PresenterToViewRestaurantDetailProtocol {
+    
+    
+    func restaurantMenusCollectionViewPrepare() {
+        restaurantMenuCollectionView.delegate = self
+        restaurantMenuCollectionView.dataSource = self
+    }
+    
+    func restaurantMenusCollectionViewRealoadData() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else {return}
+            restaurantMenuCollectionView.reloadData()
+            
+        }
+    }
+    
+    func setTitle(menuText: String) {
+        listTitleLabel.text = menuText
+    }
+    
+    func setDetailView(detail: RestaurantDetail) {
+        restaurantInfoView.configureData(detail: detail)
+    }
+    
+    
+    
+    
+}
+
 
 extension RestaurantDetailViewController : UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return presenter.numberOfItemsInSection()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RestaurantMenuCVC.identifier, for: indexPath) as?
                 RestaurantMenuCVC else {return UICollectionViewCell()}
-        cell.backgroundColor = .white
-        cell.layer.cornerRadius = 10
+        //let item = presenter.cellForItem(at: indexPath)
+        cell.backgroundColor = .white //UIColor(hex: item.backColor)
+        cell.layer.cornerRadius = 10 //item.cornerRadius
         return cell
     }
     
@@ -70,7 +105,8 @@ extension RestaurantDetailViewController : UICollectionViewDelegate,UICollection
 extension RestaurantDetailViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width - 10 , height: UIScreen.main.bounds.height / 7)
+        return presenter.sizeForItemAt(width: UIScreen.main.bounds.width,
+                                       height: UIScreen.main.bounds.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

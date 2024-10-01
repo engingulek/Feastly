@@ -51,6 +51,10 @@ class RestaurantInfoUIView: UIView {
         
     }
     
+    func configureData(detail:RestaurantDetail){
+        
+    }
+    
     private func configureUI(){
         addSubview(restaurantImage)
         restaurantImage.snp.makeConstraints { make in
