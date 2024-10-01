@@ -18,7 +18,9 @@ protocol ViewToPresenterAllKitchensProtocol {
     func cellForItem(at indexPath:IndexPath) -> (kitchen:Kitchen,
                                                  backColor:String,
                                                  cellBorderColor:String,
-                                                 cornerRadius:CGFloat)
+                                                 cornerRadius:CGFloat,
+                                                 borderWidth:CGFloat)
+    func insetForSectionAt() ->(top:CGFloat,left:CGFloat,right:CGFloat,bottom:CGFloat)
     func didSelectItem(at indexPath:IndexPath)
     func sizeForItemAt(width:CGFloat,height:CGFloat) -> CGSize
     func didTappedListRestaurantButton()

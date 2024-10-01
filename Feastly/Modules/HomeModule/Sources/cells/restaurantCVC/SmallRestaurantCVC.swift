@@ -29,7 +29,9 @@ class SmallRestaurantCVC: UICollectionViewCell {
         configureUI()
     }
     
+    //MARK: configureUI
     private func configureUI(){
+        
         contentView.addSubview(restaurantImageView)
         restaurantImageView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(5)
@@ -51,16 +53,16 @@ class SmallRestaurantCVC: UICollectionViewCell {
         }
         
         contentView.addSubview(restaurantInfo)
-        
         restaurantInfo.snp.makeConstraints { make in
             make.top.equalTo(kitchensInfo.snp.bottom).offset(10)
             make.leading.equalTo(restaurantImageView.snp.trailing).offset(10)
         }
     }
     
-    
+    //MARK: configureData
     func configureData(data:RestaurantResponse){
-        restaurantImageView.setImage(with:  data.imageURL, placeholder: UIImage(systemName: "fork.knife"))
+        restaurantImageView.setImage(with:  data.imageURL, 
+                                     placeholder: UIImage(systemName: "fork.knife"))
         restaurantName.text = data.name
         kitchensInfo.text = data.kitches
         restaurantInfo.text = data.restaurantInfo

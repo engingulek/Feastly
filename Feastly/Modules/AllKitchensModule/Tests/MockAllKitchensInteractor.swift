@@ -7,7 +7,7 @@
 
 import Foundation
 @testable import AllKitchensModule
-
+import CommonKit
 enum MockError: Error {
     case mockError
 }

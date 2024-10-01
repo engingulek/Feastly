@@ -55,10 +55,9 @@ class RestaurantDetailViewController: UIViewController {
     }
 }
 
+//MARK: PresenterToViewRestaurantDetailProtocol
 extension RestaurantDetailViewController  : PresenterToViewRestaurantDetailProtocol {
   
-    
-    
     func restaurantMenusCollectionViewPrepare() {
         restaurantMenuCollectionView.delegate = self
         restaurantMenuCollectionView.dataSource = self
@@ -90,7 +89,7 @@ extension RestaurantDetailViewController  : PresenterToViewRestaurantDetailProto
     }
 }
 
-
+//MARK: UICollectionViewDelegate,UICollectionViewDataSource
 extension RestaurantDetailViewController : UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfItemsInSection()
@@ -108,7 +107,7 @@ extension RestaurantDetailViewController : UICollectionViewDelegate,UICollection
     
 }
 
-
+//MARK: UICollectionViewDelegateFlowLayout
 extension RestaurantDetailViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

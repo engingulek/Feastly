@@ -91,6 +91,7 @@ extension FilterRestaurnatListPresenter : ViewToPresenterFilterRestaurantListPro
     }
 }
 
+//MARK: InteractorToPresenterFilterRestaurantListProtocol
 extension FilterRestaurnatListPresenter : InteractorToPresenterFilterRestaurantListProtocol {
     func sendRestaurantData(restaurants: [Restaurant]) {
         filterRestaurantLit = restaurants

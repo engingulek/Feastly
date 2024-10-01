@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import CommonKit
 import SnapKit
+
 class BigRestaurantCVC: UICollectionViewCell {
     static let identifier :  String = "bigRestaurant"
     
@@ -32,7 +33,7 @@ class BigRestaurantCVC: UICollectionViewCell {
         infoUIView.backgroundColor = UIColor(hex: ColorTheme.secondaryBackColor.rawValue)
     }
     
-    
+    //MARK: ConfigureUI
     private func configureUI(){
         contentView.addSubview(restaurantImageView)
         restaurantImageView.snp.makeConstraints { make in
@@ -67,13 +68,12 @@ class BigRestaurantCVC: UICollectionViewCell {
             make.top.equalTo(restaurantName.snp.bottom).offset(10)
             make.leading.equalTo(kitchensInfo.snp.trailing).offset(5)
         }
-        
-       
     }
     
-    
+    //MARK: ConfigureData
     func configureData(data:RestaurantResponse){
-        restaurantImageView.setImage(with: data.imageURL, placeholder: UIImage(systemName: "fork.knife"))
+        restaurantImageView.setImage(with: data.imageURL, 
+                                     placeholder: UIImage(systemName: "fork.knife"))
         restaurantName.text = data.name
         kitchensInfo.text = data.kitches
         restaurantInfo.text = data.restaurantInfo

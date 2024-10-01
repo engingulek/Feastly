@@ -33,7 +33,7 @@ final class RestaurantDetailPresenter {
     }
 }
 
-
+//MARK: ViewToPresenterRestaurantDetailProtocol
 extension RestaurantDetailPresenter : ViewToPresenterRestaurantDetailProtocol {
     
     
@@ -68,6 +68,7 @@ extension RestaurantDetailPresenter : ViewToPresenterRestaurantDetailProtocol {
     }
 }
 
+//MARK: InteracorToPresenterRestaurantDetailProtocol
 extension RestaurantDetailPresenter : InteracorToPresenterRestaurantDetailProtocol {
     func sendRestaurantDetail(restaurantDetail: RestaurantDetail) {
       

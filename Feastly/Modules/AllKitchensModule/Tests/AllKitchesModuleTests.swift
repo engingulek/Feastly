@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+import CommonKit
 @testable import AllKitchensModule
 
 final class AllKitchesModuleTests : XCTestCase {
@@ -80,6 +81,14 @@ final class AllKitchesModuleTests : XCTestCase {
         XCTAssertEqual(item.height, cellWidth*1.2)
     }
     
+    func test_cell_insetForSectionAt(){
+        presenter.viewDidLoad()
+        let item = presenter.insetForSectionAt()
+        XCTAssertEqual(item.top,0)
+        XCTAssertEqual(item.left, 10)
+        XCTAssertEqual(item.right,0)
+        XCTAssertEqual(item.bottom, 0)
+    }
     
     func test_viewDidload_cellForItem_WhenSelectedKithenListEmpty(){
         let expectation = XCTestExpectation(description: "Async task completed")

@@ -99,25 +99,27 @@ extension AllKitchensViewController :  UICollectionViewDelegate,UICollectionView
         cell.backgroundColor = UIColor(hex: item.backColor)
         cell.layer.cornerRadius = item.cornerRadius
         cell.layer.borderColor = UIColor(hex: item.cellBorderColor)?.cgColor
-        cell.layer.borderWidth = 2
+        cell.layer.borderWidth = item.borderWidth
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         presenter.didSelectItem(at: indexPath)
     }
-    
-  
-   
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-    }
 }
 
+//MARK: UICollectionViewDelegateFlowLayout
 extension AllKitchensViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return presenter.sizeForItemAt(width: UIScreen.main.bounds.width,
                                        height: UIScreen.main.bounds.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let item = presenter.insetForSectionAt()
+        return UIEdgeInsets(top: item.top,
+                            left: item.left,
+                            bottom: item.bottom,
+                            right: item.right)
     }
 }
