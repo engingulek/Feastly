@@ -26,7 +26,7 @@ final class FilterRestaurnatListPresenter {
     }
     
     private func fetchRestaurant(list:[String]) async {
-       
+        
         do{
             try await interactor.fetchRestaurantFilter(list: list)
         }catch{
@@ -43,6 +43,14 @@ final class FilterRestaurnatListPresenter {
 //MARK: ViewToPresenterHomeProtocol
 
 extension FilterRestaurnatListPresenter : ViewToPresenterFilterRestaurantListProtocol {
+    func minimumLineSpacingForSectionAt() -> CGFloat {
+        return 10
+    }
+    
+    func insetForSectionAt() -> (top: CGFloat, left: CGFloat, right: CGFloat, bottom: CGFloat) {
+        return (top: 0, left: 10, right: 0, bottom: 10)
+    }
+    
     func viewDidLoad() {
         view?.restaurantCollectionViewPrepare()
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
@@ -66,9 +74,9 @@ extension FilterRestaurnatListPresenter : ViewToPresenterFilterRestaurantListPro
         let time = km / 25
         let restaurantInfo = " * \(String(format: "%.2f", time))dk * \(String(format: "%.2f", km))km * \(restaurant.minWage)TL"
         let response = RestaurantResponse(id: restaurant.id,
-                                  imageURL: restaurant.imageURL,
-                                  name: restaurant.name,
-                                  kitches: kitches, restaurantInfo: restaurantInfo)
+                                          imageURL: restaurant.imageURL,
+                                          name: restaurant.name,
+                                          kitches: kitches, restaurantInfo: restaurantInfo)
         return (restaurant:response,backColor:ColorTheme.secondaryBackColor.rawValue,cornerRadius:10)
         
     }
@@ -101,3 +109,5 @@ extension FilterRestaurnatListPresenter : InteractorToPresenterFilterRestaurantL
     
     
 }
+
+

@@ -19,6 +19,8 @@ protocol ViewToPresenterFilterRestaurantListProtocol {
                                                  cornerRadius:CGFloat)
     func didSelectItem(at indePath:IndexPath)
     func sizeForItemAt(width:CGFloat,height:CGFloat) -> CGSize
+    func minimumLineSpacingForSectionAt() -> CGFloat
+    func insetForSectionAt() ->(top:CGFloat,left:CGFloat,right:CGFloat,bottom:CGFloat)
     
     func getSelectedList(list:[String])
 }

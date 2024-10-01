@@ -50,6 +50,8 @@ final class HomePresenter {
 
 //MARK: ViewToPresenterHomeProtocol
 extension HomePresenter : ViewToPresenterHomeProtocol {
+  
+    
 
     func viewDidLoad() {
         
@@ -107,6 +109,14 @@ extension HomePresenter : ViewToPresenterHomeProtocol {
                                   imageURL: restaurant.imageURL,
                                   name: restaurant.name,
                                   kitches: kitches, restaurantInfo: restaurantInfo)
+    }
+    
+    func minimumLineSpacingForSectionAt() -> CGFloat {
+        return 10
+    }
+    
+    func insetForSectionAt() -> (top: CGFloat, left: CGFloat, right: CGFloat, bottom: CGFloat) {
+        return (top: 0, left: 10, right: 0, bottom: 10)
     }
 
 }
