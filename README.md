@@ -56,3 +56,7 @@ tuist generate
 
 
 
+##Graph
+
+ <img width="820" height="240" src = "https://github.com/user-attachments/assets/3643ab49-ceed-42fa-ba1e-d71850826788">
+
