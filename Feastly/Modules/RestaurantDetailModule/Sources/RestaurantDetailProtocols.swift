@@ -20,6 +20,9 @@ protocol ViewToPresenterRestaurantDetailProtocol{
                                                  backColor:String,
                                                  cornerRadius:CGFloat)
     
+    func minimumLineSpacingForSectionAt() -> CGFloat
+    func insetForSectionAt() ->(top:CGFloat,left:CGFloat,right:CGFloat,bottom:CGFloat)
+    
     func sizeForItemAt(width:CGFloat,height:CGFloat) -> CGSize
 }
 

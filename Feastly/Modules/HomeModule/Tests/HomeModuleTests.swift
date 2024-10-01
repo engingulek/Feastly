@@ -154,6 +154,21 @@ final class HomeModuleTests : XCTestCase {
         
     }
     
+    func test_minimumLineSpacingForSectionAt(){
+        presenter.viewDidLoad()
+        let item = presenter.minimumLineSpacingForSectionAt()
+        XCTAssertEqual(item,10)
+    }
+    
+    func test_insetForSectionAt(){
+        let item = presenter.insetForSectionAt()
+        presenter.viewDidLoad()
+        
+        XCTAssertEqual(item.top,0)
+        XCTAssertEqual(item.left, 10)
+        XCTAssertEqual(item.right,0)
+        XCTAssertEqual(item.bottom, 10)
+    }
     
     func test_tag1_returnSizeForItemAt(){
         presenter.viewDidLoad()

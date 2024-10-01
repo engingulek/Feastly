@@ -116,13 +116,19 @@ extension RestaurantDetailViewController : UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        10
+        return presenter.minimumLineSpacingForSectionAt()
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        let item = presenter.insetForSectionAt()
+        return UIEdgeInsets(top: item.top,
+                            left: item.left,
+                            bottom: item.bottom,
+                            right: item.right)
     }
+    
 }
 
 

@@ -35,6 +35,7 @@ final class RestaurantDetailPresenter {
 
 //MARK: ViewToPresenterRestaurantDetailProtocol
 extension RestaurantDetailPresenter : ViewToPresenterRestaurantDetailProtocol {
+  
     
     
     func viewDidLoad() {
@@ -66,6 +67,15 @@ extension RestaurantDetailPresenter : ViewToPresenterRestaurantDetailProtocol {
     func sizeForItemAt(width: CGFloat, height: CGFloat) -> CGSize {
         return CGSize(width: width - 10 , height: height / 7)
     }
+    
+    func minimumLineSpacingForSectionAt() -> CGFloat {
+        return 10
+    }
+    
+    func insetForSectionAt() -> (top: CGFloat, left: CGFloat, right: CGFloat, bottom: CGFloat) {
+        return (top: 0, left: 10, right: 0, bottom: 10)
+    }
+    
 }
 
 //MARK: InteracorToPresenterRestaurantDetailProtocol
