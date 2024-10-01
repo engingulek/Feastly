@@ -10,7 +10,8 @@ import ProjectDescription
 let commonKit = Project (
     name: "CommonKit",
     packages: [
-        .package(url:"https://github.com/onevcat/Kingfisher.git",from:"8.0.2")
+        .package(url:"https://github.com/onevcat/Kingfisher.git",from:"8.0.2"),
+        .package(url: "https://github.com/SnapKit/SnapKit", from: "5.7.1"),
     ],
     targets: [
         .target(name: "CommonKit",
@@ -21,6 +22,7 @@ let commonKit = Project (
                 sources: "Sources/**",
                 dependencies: [
                     .package(product:"Kingfisher"),
+                    .package(product: "SnapKit")
                 ]
                ),
     ]

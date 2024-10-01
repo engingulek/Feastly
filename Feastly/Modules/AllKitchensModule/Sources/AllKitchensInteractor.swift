@@ -7,7 +7,7 @@
 
 import Foundation
 import NetworkKit
-
+import CommonKit
 class AllKitchensInteractor : PresenterToInteractorAllKitchensProtocol {
     
     var presenter : InteractorToPresenterAllKitchensProtocol?

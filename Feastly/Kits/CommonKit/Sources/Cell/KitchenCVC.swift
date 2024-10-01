@@ -1,17 +1,19 @@
 //
-//  CategoryCVC.swift
-//  HomeModule
+//  KitchenCVC.swift
+//  CommonKit
 //
-//  Created by Engin Gülek on 27.09.2024.
+//  Created by Engin Gülek on 1.10.2024.
 //
 
+import Foundation
+
+import Foundation
 import Foundation
 import UIKit
 import SnapKit
 
-import CommonKit
-class KitchenCVC: UICollectionViewCell {
-    static let identifier : String = "kitchenCVC"
+public class KitchenCVC: UICollectionViewCell {
+    public static let identifier : String = "kitchenCVC"
     
     private lazy var kitchenImageView: UIImageView = {
         let imageView = UIImageView()
@@ -47,8 +49,8 @@ class KitchenCVC: UICollectionViewCell {
     }
     
     
-     func configureData(kitchen:Kitchen){
-        kitchenImageView.setImage(with:kitchen.imageUrl, placeholder: UIImage(systemName: "fork.knife"))
+    public func configureData(kitchen:Kitchen){
+        kitchenImageView.setImage(with: kitchen.imageUrl, placeholder: UIImage(systemName: "fork.knife"))
         kitchenLabel.text = kitchen.name
     }
     
@@ -57,5 +59,5 @@ class KitchenCVC: UICollectionViewCell {
     }
     
     
- 
+    
 }
