@@ -26,21 +26,34 @@ final class RestaurantDetailPresenter {
         do{
             try await interactor.fetchRestaurantDetail(id: id)
         }catch{
-            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
-                                      message: TextTheme.primaryErrorMessage.rawValue,
-                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
+                createAlertMessage()
+            }
         }
+    }
+    
+  
+    private func createAlertMessage(){
+        view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                  message: TextTheme.primaryErrorMessage.rawValue,
+                                  actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
     }
 }
 
-
+//MARK: ViewToPresenterRestaurantDetailProtocol
 extension RestaurantDetailPresenter : ViewToPresenterRestaurantDetailProtocol {
+  
     
     
     func viewDidLoad() {
         view?.restaurantMenusCollectionViewPrepare()
         view?.setBackColorAble(color: ColorTheme.primaryBackColor.rawValue)
         view?.setTitle(menuText: TextTheme.menus.rawValue)
+        view?.changeTitle(title: TextTheme.restaurantDetail.rawValue)
+        view?.viewLabelsTest(service: TextTheme.service.rawValue,
+                             flavor: TextTheme.flavor.rawValue,
+                             minWage: TextTheme.minWage.rawValue)
     }
     
     func getRestaurantId(id: String) {
@@ -62,8 +75,18 @@ extension RestaurantDetailPresenter : ViewToPresenterRestaurantDetailProtocol {
     func sizeForItemAt(width: CGFloat, height: CGFloat) -> CGSize {
         return CGSize(width: width - 10 , height: height / 7)
     }
+    
+    func minimumLineSpacingForSectionAt() -> CGFloat {
+        return 10
+    }
+    
+    func insetForSectionAt() -> (top: CGFloat, left: CGFloat, right: CGFloat, bottom: CGFloat) {
+        return (top: 0, left: 10, right: 0, bottom: 10)
+    }
+    
 }
 
+//MARK: InteracorToPresenterRestaurantDetailProtocol
 extension RestaurantDetailPresenter : InteracorToPresenterRestaurantDetailProtocol {
     func sendRestaurantDetail(restaurantDetail: RestaurantDetail) {
       

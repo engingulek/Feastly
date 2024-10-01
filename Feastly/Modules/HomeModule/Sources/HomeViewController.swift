@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     private lazy var restaurantColectionView = UICollectionView.primaryCollectionView(tag: 1,scroolDirection: .vertical)
     private lazy var kitchenTitleLabel = UILabel.titleUILabel()
     private lazy var offerTitleLabel = UILabel.titleUILabel()
-    private lazy var searchTextField = UISearchTextField()
+    
     private lazy var allKitchensButton = UIButton.textButton(text: TextTheme.allKitchens.rawValue)
     private lazy var changeArrayTypeButton : UIButton = {
         let button = UIButton()
@@ -45,32 +45,21 @@ class HomeViewController: UIViewController {
         allKitchensButton.addAction(allKitchensButtonAction, for: .touchUpInside)
         presenter.viewDidLoad()
         configureUI()
-        searchTextField.addTarget(self,
-                                  action: #selector(searchTextFieldDidChange(_:)),
-                                  for: .editingChanged)
+       
     }
     
-    @objc func searchTextFieldDidChange(_ textField: UITextField) {
-        presenter.searchAction(text: textField.text)
-    }
-    
+  
     private func configureUI(){
-        view.addSubview(searchTextField)
-        searchTextField.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
-            make.leading.equalToSuperview().offset(20)
-            make.trailing.equalToSuperview().offset(-20)
-            make.height.equalTo(45)
-        }
+        
         view.addSubview(kitchenTitleLabel)
         kitchenTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(searchTextField.snp.bottom).offset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(15)
             make.leading.equalTo(view).offset(10)
         }
         
         view.addSubview(allKitchensButton)
         allKitchensButton.snp.makeConstraints { make in
-            make.top.equalTo(searchTextField.snp.bottom).offset(10)
+            make.top.equalTo(kitchenTitleLabel.snp.top)
             make.trailing.equalTo(view).offset(-10)
         }
         
@@ -104,7 +93,7 @@ class HomeViewController: UIViewController {
     }
 }
 
-
+//MARK: PresenterToViewHomeProtocol
 extension HomeViewController : PresenterToViewHomeProtocol {
     
     
@@ -149,7 +138,7 @@ extension HomeViewController : PresenterToViewHomeProtocol {
 }
 
 
-
+//MARK: UICollectionViewDelegate,UICollectionViewDataSource
 extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfItemsIn(tag: collectionView.tag)
@@ -190,7 +179,7 @@ extension HomeViewController : UICollectionViewDelegate,UICollectionViewDataSour
     }
 }
 
-
+//MARK: UICollectionViewDelegateFlowLayout
 extension HomeViewController : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch collectionView.tag {
@@ -212,12 +201,17 @@ extension HomeViewController : UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        10
+        return presenter.minimumLineSpacingForSectionAt()
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        let item = presenter.insetForSectionAt()
+        return UIEdgeInsets(top: item.top,
+                            left: item.left,
+                            bottom: item.bottom,
+                            right: item.right)
     }
     
 }

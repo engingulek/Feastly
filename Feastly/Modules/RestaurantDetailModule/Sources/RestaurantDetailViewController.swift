@@ -55,9 +55,9 @@ class RestaurantDetailViewController: UIViewController {
     }
 }
 
+//MARK: PresenterToViewRestaurantDetailProtocol
 extension RestaurantDetailViewController  : PresenterToViewRestaurantDetailProtocol {
-    
-    
+  
     func restaurantMenusCollectionViewPrepare() {
         restaurantMenuCollectionView.delegate = self
         restaurantMenuCollectionView.dataSource = self
@@ -81,15 +81,15 @@ extension RestaurantDetailViewController  : PresenterToViewRestaurantDetailProto
             restaurantInfoView.configureData(detail: detail)
             
         }
-        
     }
     
     
-    
-    
+    func viewLabelsTest(service: String, flavor: String, minWage: String) {
+        restaurantInfoView.setLabelText(service, flavor, minWage)
+    }
 }
 
-
+//MARK: UICollectionViewDelegate,UICollectionViewDataSource
 extension RestaurantDetailViewController : UICollectionViewDelegate,UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfItemsInSection()
@@ -107,7 +107,7 @@ extension RestaurantDetailViewController : UICollectionViewDelegate,UICollection
     
 }
 
-
+//MARK: UICollectionViewDelegateFlowLayout
 extension RestaurantDetailViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -116,13 +116,19 @@ extension RestaurantDetailViewController : UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        10
+        return presenter.minimumLineSpacingForSectionAt()
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        
+        let item = presenter.insetForSectionAt()
+        return UIEdgeInsets(top: item.top,
+                            left: item.left,
+                            bottom: item.bottom,
+                            right: item.right)
     }
+    
 }
 
 

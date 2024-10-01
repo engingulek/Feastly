@@ -20,6 +20,9 @@ protocol ViewToPresenterRestaurantDetailProtocol{
                                                  backColor:String,
                                                  cornerRadius:CGFloat)
     
+    func minimumLineSpacingForSectionAt() -> CGFloat
+    func insetForSectionAt() ->(top:CGFloat,left:CGFloat,right:CGFloat,bottom:CGFloat)
+    
     func sizeForItemAt(width:CGFloat,height:CGFloat) -> CGSize
 }
 
@@ -28,6 +31,7 @@ protocol PresenterToViewRestaurantDetailProtocol: AnyObject,Kits{
     func restaurantMenusCollectionViewRealoadData()
     func setTitle(menuText:String)
     func setDetailView(detail:RestaurantDetail)
+    func viewLabelsTest(service:String,flavor:String,minWage:String)
 }
 
 protocol PresenterToInteractorRestaurantDetailProtocol{

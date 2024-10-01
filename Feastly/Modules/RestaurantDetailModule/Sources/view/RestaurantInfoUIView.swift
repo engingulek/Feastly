@@ -7,7 +7,7 @@
 
 import UIKit
 import SnapKit
-import Kingfisher
+
 import CommonKit
 import CoreLocation
 class RestaurantInfoUIView: UIView {
@@ -46,7 +46,7 @@ class RestaurantInfoUIView: UIView {
     func configureData(detail:RestaurantDetail){
         
         let url = URL(string: detail.imageURL)
-        restaurantImage.kf.setImage(with: url)
+        restaurantImage.setImage(with:detail.imageURL, placeholder: UIImage(systemName: "fork.knife"))
         restaurantName.text = detail.name
         servicePoint.text = "\(detail.service)"
         flavorPoint.text = "\(detail.flavor)"
@@ -54,8 +54,14 @@ class RestaurantInfoUIView: UIView {
         let kitches = detail.kitchens.map { $0.name }.joined(separator:", ")
         let userLocation = CLLocation(latitude: 41.09732, longitude: 29.03126)
         let km = restaurantLocation.distance(from: userLocation) / 1000
-        subInfo.text = "\(String(format: "%.2f", km)) * \(kitches)"
+        subInfo.text = "\(String(format: "%.2f", km))km * \(kitches)"
         minWageLabel.text = "\(detail.minWage)TL"
+    }
+    
+    func setLabelText(_ service:String,_ flavor:String,_ minWage:String){
+        serviceLabel.text = service
+        flavorLabel.text = flavor
+        minWageTitleLabel.text = minWage
     }
     
     private func configureUI(){

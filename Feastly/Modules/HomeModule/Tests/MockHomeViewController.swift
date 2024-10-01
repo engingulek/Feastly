@@ -13,6 +13,7 @@ import UIKit
 class MockHomeViewController : PresenterToViewHomeProtocol {
 
 
+
     var invokedkitchenCollectionViewReload:Bool = false
     var invokedkitchenCollectionViewReloadCount:Int = 0
     func kitchenCollectionViewReload() {
@@ -26,10 +27,6 @@ class MockHomeViewController : PresenterToViewHomeProtocol {
         invokedKitchenCollectionViewPrepare = true
         invokedKitchenCollectionViewPrepareCount += 1
     }
-    
-    
-
-    
     
     var invokedrestaurantCollectionViewPrepare:Bool = false
     var invokedrestaurantCollectionViewPrepareCount:Int = 0
@@ -94,10 +91,19 @@ class MockHomeViewController : PresenterToViewHomeProtocol {
         involedCreateAlertMessageData.append((title: title, message: message, actionTitle: actionTitle))
     }
     
-    
+    var invokedPushViewController:Bool = false
+    var invokedPushViewControllerData:Int = 0
+    func pushViewControllerAble(_ vc: UIViewController, animated: Bool) {
+         invokedPushViewController = true
+         invokedPushViewControllerData += 1
+    }
 
-    func pushViewControllerAble(_ vc: UIViewController, animated: Bool) {}
-
+    var invokedpopViewControllerAble:Bool = false
+    var invokedpopViewControllerAbleData:Int = 0
+    func popViewControllerAble() {
+         invokedpopViewControllerAble = true
+         invokedpopViewControllerAbleData += 1
+    }
     
     
     

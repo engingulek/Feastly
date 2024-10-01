@@ -27,9 +27,11 @@ final class AllKitchensPresenter {
         do{
             try await interactor.fetchKitches()
         }catch{
-            view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
-                                      message: TextTheme.primaryErrorMessage.rawValue,
-                                      actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {return}
+                createAlertMessage()
+                view?.popViewControllerAble()
+            }
         }
     }
     
@@ -46,13 +48,20 @@ final class AllKitchensPresenter {
         
     }
     
+    private func createAlertMessage(){
+        view?.createAlertMesssage(title: TextTheme.primaryErrorTitle.rawValue,
+                                  message: TextTheme.primaryErrorMessage.rawValue,
+                                  actionTitle: TextTheme.primaryErrorActionTitle.rawValue)
+    }
+    
     
 }
 
 
 //MARK: ViewToPresenterAllKitchensProtocol
 extension AllKitchensPresenter : ViewToPresenterAllKitchensProtocol {
-
+    
+    
     func viewDidLoad() {
         view?.kitchenCollectionViewReload()
         view?.kitchenCollectionViewPrepare()
@@ -73,27 +82,29 @@ extension AllKitchensPresenter : ViewToPresenterAllKitchensProtocol {
     func cellForItem(at indexPath: IndexPath) -> (kitchen: Kitchen,
                                                   backColor:String,
                                                   cellBorderColor:String,
-                                                  cornerRadius:CGFloat) {
-
+                                                  cornerRadius:CGFloat,
+                                                  borderWidth:CGFloat) {
+        
         let kitchen = kitchenList[indexPath.item]
-                let stateKitchen = selectedkitchenList.contains(kitchen.id)
+        let stateKitchen = selectedkitchenList.contains(kitchen.id)
         let cellBorderColor = stateKitchen ? ColorTheme.secondaryLabelColor.rawValue : ColorTheme.primaryBackColor.rawValue
         return (kitchen,
                 backColor:ColorTheme.secondaryBackColor.rawValue,cellBorderColor,
-                cornerRadius:10)
+                cornerRadius:10,
+                borderWidth:2)
     }
     
     func didSelectItem(at indexPath: IndexPath) {
         
         let kitchen = kitchenList[indexPath.item]
-      
+        
         if let index = selectedkitchenList.firstIndex(of: kitchen.id) {
             selectedkitchenList.remove(at: index)
-        
+            
         } else {
             selectedkitchenList.append(kitchen.id)
         }
-    
+        
         
         listRestaurantEnabledAction()
         clearButtonIsHiddenAction()
@@ -120,6 +131,11 @@ extension AllKitchensPresenter : ViewToPresenterAllKitchensProtocol {
         router.toFilterProductList(view: view,selectedKitchensId: selectedkitchenList)
     }
     
+    func insetForSectionAt() -> (top: CGFloat, left: CGFloat, right: CGFloat, bottom: CGFloat) {
+        return (top: 0, left: 10, right: 0, bottom: 0)
+    }
+    
+    
     
 }
 
@@ -130,6 +146,4 @@ extension AllKitchensPresenter : InteractorToPresenterAllKitchensProtocol {
         view?.kitchenCollectionViewReload()
         view?.clearButtonHidden(isHidden: true)
     }
-    
-    
 }

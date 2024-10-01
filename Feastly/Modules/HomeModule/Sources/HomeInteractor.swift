@@ -11,6 +11,7 @@ import CommonKit
 class HomeInteractor : PresenterToInteractorHomeProtocol {
     var presenter : InteractorToPresenterHomeProtocol?
     private let networkManager : NetworkManagerProtocol = NetworkManager()
+    
     func fetchKitches() async throws {
         do{
             let response = try await networkManager.fetch(target: .kitchen, responseClass: DataResult<[Kitchen]>.self)
@@ -18,7 +19,6 @@ class HomeInteractor : PresenterToInteractorHomeProtocol {
         }catch{
             throw error
         }
-        
     }
     
     func fetchRestaurant() async throws {

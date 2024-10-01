@@ -11,6 +11,7 @@ import UIKit
 
 class MockAllKitchensViewController : PresenterToViewAllKitchensProtocol {
     
+    
     var invokedkitchenCollectionViewReload:Bool = false
     var invokedkitchenCollectionViewReloadCount:Int = 0
     func kitchenCollectionViewReload() {
@@ -29,8 +30,8 @@ class MockAllKitchensViewController : PresenterToViewAllKitchensProtocol {
     var invokedListKitchenIsEnabledCount:Int = 0
     var invokedListKitchenIsEnabledData = [(isEnabled: Bool, backColor: String)]()
     func listKitchenIsEnables(isEnabled: Bool, backColor: String) {
-         invokedListKitchenIsEnabled = true
-         invokedListKitchenIsEnabledCount += 1
+        invokedListKitchenIsEnabled = true
+        invokedListKitchenIsEnabledCount += 1
         invokedListKitchenIsEnabledData.append((isEnabled: isEnabled, backColor: backColor))
     }
     
@@ -38,8 +39,8 @@ class MockAllKitchensViewController : PresenterToViewAllKitchensProtocol {
     var invokedClearButtonHiddenCount:Int = 0
     var invokedClearButtonHiddenData = [(isHidden: Bool,Void)]()
     func clearButtonHidden(isHidden: Bool) {
-         invokedClearButtonHidden = true
-         invokedClearButtonHiddenCount += 1
+        invokedClearButtonHidden = true
+        invokedClearButtonHiddenCount += 1
         invokedClearButtonHiddenData.removeAll()
         invokedClearButtonHiddenData.append((isHidden: isHidden,()))
     }
@@ -48,8 +49,8 @@ class MockAllKitchensViewController : PresenterToViewAllKitchensProtocol {
     var involedCreateAlertMessageCount: Int = 0
     var involedCreateAlertMessageData = [(title: String, message: String, actionTitle: String)]()
     func createAlertMesssage(title: String, message: String, actionTitle: String) {
-         involedCreateAlertMessage = false
-         involedCreateAlertMessageCount += 1
+        involedCreateAlertMessage = false
+        involedCreateAlertMessageCount += 1
         involedCreateAlertMessageData.append((title: title, message: message, actionTitle: actionTitle))
     }
     
@@ -73,8 +74,18 @@ class MockAllKitchensViewController : PresenterToViewAllKitchensProtocol {
     }
     
     
+    var invokedPushViewController:Bool = false
+    var invokedPushViewControllerData:Int = 0
     func pushViewControllerAble(_ vc: UIViewController, animated: Bool) {
-        
+         invokedPushViewController = true
+         invokedPushViewControllerData += 1
     }
 
+    var invokedpopViewControllerAble:Bool = false
+    var invokedpopViewControllerAbleCount:Int = 0
+    func popViewControllerAble() {
+        invokedpopViewControllerAble = true
+        invokedpopViewControllerAbleCount += 1
+    }
+    
 }

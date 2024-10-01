@@ -88,6 +88,7 @@ extension FilterRestaurantListViewController : PresenterToViewFilterRestaurantLi
     
 }
 
+//MARK: UICollectionViewDelegate,UICollectionViewDataSource
 extension FilterRestaurantListViewController : UICollectionViewDelegate,UICollectionViewDataSource  {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return presenter.numberOfItemsIn()
@@ -107,7 +108,7 @@ extension FilterRestaurantListViewController : UICollectionViewDelegate,UICollec
     }
 }
 
-
+//MARK: UICollectionViewDelegateFlowLayout
 extension FilterRestaurantListViewController : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -115,11 +116,15 @@ extension FilterRestaurantListViewController : UICollectionViewDelegateFlowLayou
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        10
+        return presenter.minimumLineSpacingForSectionAt()
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        let item = presenter.insetForSectionAt()
+        return UIEdgeInsets(top: item.top,
+                            left: item.left,
+                            bottom: item.bottom,
+                            right: item.right)
     }
 }

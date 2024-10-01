@@ -13,7 +13,7 @@ typealias Kits = UIViewAble & AlertMessageAble & SegueAble & NavConUIAble
 protocol ViewToPresenterHomeProtocol{
     var view : PresenterToViewHomeProtocol? {get}
     func viewDidLoad()
-    func searchAction(text:String?)
+    
     func changeOfferArrayDesign()
     func didTappedAllKitchensButton()
     
@@ -21,6 +21,10 @@ protocol ViewToPresenterHomeProtocol{
     func cellForItem(at indexPath:IndexPath,tag:Int) -> (state:Bool,
                                                          backColor:String,
                                                          cornerRadius:CGFloat)
+    
+    func minimumLineSpacingForSectionAt() -> CGFloat
+    func insetForSectionAt() ->(top:CGFloat,left:CGFloat,right:CGFloat,bottom:CGFloat)
+    
     func didSelecetItem(at indexPath:IndexPath,tag:Int)
     func sizeForItemAt(tag:Int,width:CGFloat,height:CGFloat) -> CGSize
     

@@ -24,11 +24,16 @@ extension UIViewAble where Self : UIViewController  {
 //MARK: - SegueAble
 public protocol SegueAble {
     func pushViewControllerAble (_ vc:UIViewController,animated:Bool)
+    func popViewControllerAble()
 }
 
 extension SegueAble  where Self : UIViewController{
     public func pushViewControllerAble (_ vc:UIViewController,animated:Bool) {
         navigationController?.pushViewController(vc, animated: animated)
+    }
+    
+    public func popViewControllerAble(){
+        navigationController?.popViewController(animated: true)
     }
 }
 
@@ -43,6 +48,11 @@ extension NavConUIAble where Self :  UIViewController{
     
     public func changeTitle(title:String) {
         navigationItem.title = title
+        navigationController?.navigationBar.tintColor = UIColor(hex: ColorTheme.secondaryLabelColor.rawValue)
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor:UIColor(
+            hex: ColorTheme.secondaryLabelColor.rawValue) ?? .orange
+        ]
     }
     
 }
@@ -62,6 +72,5 @@ extension AlertMessageAble  where Self : UIViewController {
         
         alert.addAction(UIAlertAction(title: actionTitle, style: .default))
         self.present(alert, animated: true)
-        
     }
 }

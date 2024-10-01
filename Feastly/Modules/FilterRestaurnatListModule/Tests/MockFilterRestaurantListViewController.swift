@@ -10,7 +10,7 @@ import UIKit
 @testable import FilterRestaurnatListModule
 
 class MockFilterRestaurantListViewController : PresenterToViewFilterRestaurantListProtocol {
- 
+    
     
     
     var invokedrestaurantCollectionViewPrepare:Bool = false
@@ -47,8 +47,8 @@ class MockFilterRestaurantListViewController : PresenterToViewFilterRestaurantLi
     var invokedStopActivityIndicator:Bool = false
     var invokedStopActivityIndicatorCount:Int = 0
     func stopActivityIndicator() {
-         invokedStopActivityIndicator = true
-         invokedStopActivityIndicatorCount += 1
+        invokedStopActivityIndicator = true
+        invokedStopActivityIndicatorCount += 1
     }
     
     var invokedsetBackColorAble:Bool = false
@@ -64,12 +64,12 @@ class MockFilterRestaurantListViewController : PresenterToViewFilterRestaurantLi
     var involedCreateAlertMessageCount: Int = 0
     var involedCreateAlertMessageData = [(title: String, message: String, actionTitle: String)]()
     func createAlertMesssage(title: String, message: String, actionTitle: String) {
-         involedCreateAlertMessage = false
-         involedCreateAlertMessageCount += 1
+        involedCreateAlertMessage = false
+        involedCreateAlertMessageCount += 1
         involedCreateAlertMessageData.append((title: title, message: message, actionTitle: actionTitle))
     }
     
-  
+    
     
     var invokedsetChangeTitle:Bool = false
     var invokedsetChangeTitleCount:Int = 0
@@ -80,9 +80,20 @@ class MockFilterRestaurantListViewController : PresenterToViewFilterRestaurantLi
         invokedsetChangeTitleData.append((title:title,()))
     }
     
+    var invokedPushViewController:Bool = false
+    var invokedPushViewControllerData:Int = 0
     func pushViewControllerAble(_ vc: UIViewController, animated: Bool) {
-        
+         invokedPushViewController = true
+         invokedPushViewControllerData += 1
     }
+
+    var invokedpopViewControllerAble:Bool = false
+    var invokedpopViewControllerAbleData:Int = 0
+    func popViewControllerAble() {
+         invokedpopViewControllerAble = true
+         invokedpopViewControllerAbleData += 1
+    }
+    
     
     
 }

@@ -131,8 +131,23 @@ final class FilterRestaurnatTests : XCTestCase {
         
         XCTAssertTrue(view.invokedStopActivityIndicator)
         XCTAssertEqual(view.invokedStopActivityIndicatorCount,1)
+    }
+    
+    
+    func test_minimumLineSpacingForSectionAt(){
+        presenter.viewDidLoad()
+        let item = presenter.minimumLineSpacingForSectionAt()
+        XCTAssertEqual(item,10)
+    }
+    
+    func test_insetForSectionAt(){
+        let item = presenter.insetForSectionAt()
+        presenter.viewDidLoad()
         
-        
+        XCTAssertEqual(item.top,0)
+        XCTAssertEqual(item.left, 10)
+        XCTAssertEqual(item.right,0)
+        XCTAssertEqual(item.bottom, 10)
     }
     
 }

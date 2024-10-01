@@ -7,7 +7,7 @@
 
 import Foundation
 @testable import HomeModule
-
+import CommonKit
 enum MockError: Error {
     case mockError
 }
