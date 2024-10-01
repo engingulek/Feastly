@@ -43,6 +43,11 @@ extension NavConUIAble where Self :  UIViewController{
     
     public func changeTitle(title:String) {
         navigationItem.title = title
+        navigationController?.navigationBar.tintColor = UIColor(hex: ColorTheme.secondaryLabelColor.rawValue)
+        navigationController?.navigationBar.titleTextAttributes = [
+            NSAttributedString.Key.foregroundColor:UIColor(
+            hex: ColorTheme.secondaryLabelColor.rawValue) ?? .orange
+        ]
     }
     
 }
